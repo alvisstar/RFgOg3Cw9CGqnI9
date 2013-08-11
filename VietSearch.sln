@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VietSearchWebService", "VietSearchWebService\VietSearchWebService.csproj", "{F7CD4092-7B13-4B20-90C9-F0B34D6EAB06}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VietSearch.Configuration", "VietSearch.Configuration\VietSearch.Configuration.csproj", "{6C77CB10-F040-4777-B654-81BB20D03D79}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VietSearch.DefineType", "VietSearch.DefineType\VietSearch.DefineType.csproj", "{DB7CC269-FB6F-4287-BB00-B60844D0CFBF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VietSearch.Utility", "VietSearch.Utility\VietSearch.Utility.csproj", "{19B3CCF8-43D2-441A-9A32-048B7429F9CC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F7CD4092-7B13-4B20-90C9-F0B34D6EAB06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7CD4092-7B13-4B20-90C9-F0B34D6EAB06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7CD4092-7B13-4B20-90C9-F0B34D6EAB06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7CD4092-7B13-4B20-90C9-F0B34D6EAB06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C77CB10-F040-4777-B654-81BB20D03D79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C77CB10-F040-4777-B654-81BB20D03D79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C77CB10-F040-4777-B654-81BB20D03D79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C77CB10-F040-4777-B654-81BB20D03D79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB7CC269-FB6F-4287-BB00-B60844D0CFBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB7CC269-FB6F-4287-BB00-B60844D0CFBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB7CC269-FB6F-4287-BB00-B60844D0CFBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB7CC269-FB6F-4287-BB00-B60844D0CFBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19B3CCF8-43D2-441A-9A32-048B7429F9CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19B3CCF8-43D2-441A-9A32-048B7429F9CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19B3CCF8-43D2-441A-9A32-048B7429F9CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19B3CCF8-43D2-441A-9A32-048B7429F9CC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
