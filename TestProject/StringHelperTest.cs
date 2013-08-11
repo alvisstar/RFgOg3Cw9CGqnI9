@@ -70,7 +70,7 @@ namespace TestProject
         [TestMethod()]
         public void StandardizeStringTest()
         {
-            string s = "Lý Thường Kiệt"; // TODO: Initialize to an appropriate value
+            string s = "Lý   Thường    Kiệt"; // TODO: Initialize to an appropriate value
             string expected = "lythuongkiet"; // TODO: Initialize to an appropriate value
             string actual;
             actual = StringHelper.StandardizeString(s);

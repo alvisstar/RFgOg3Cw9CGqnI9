@@ -11,8 +11,7 @@ namespace VietSearch.Utility
         public static string StandardizeString(String s)
         {
             string result = ConvertToASCII(s);
-            string temp = result.Replace(" ", "").ToLower();
-            return temp;
+            return result.Replace(" ", "").ToLower();
         }
 
         private static string ConvertToASCII(string text)
