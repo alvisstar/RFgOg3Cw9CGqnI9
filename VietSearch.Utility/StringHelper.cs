@@ -7,7 +7,12 @@ namespace VietSearch.Utility
 {
     public class StringHelper
     {
+        //remove space, lower, toASCII
+        public static string StandardizeString(String s)
+        {
 
+            return "";
+        }
         
     }
 }
