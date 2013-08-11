@@ -10,8 +10,37 @@ namespace VietSearch.Utility
         //remove space, lower, toASCII
         public static string StandardizeString(String s)
         {
+            string result = ConvertToASCII(s);
+            string temp = result.Replace(" ", "").ToLower();
+            return temp;
+        }
 
-            return "";
+        private static string ConvertToASCII(string text)
+        {
+            string s = text;
+            string[] VietnameseSigns = new string[]
+            {
+                "aAeEoOuUiIdDyY",
+                "áàạảãâấầậẩẫăắằặẳẵ",
+                "ÁÀẠẢÃÂẤẦẬẨẪĂẮẰẶẲẴ",
+                "éèẹẻẽêếềệểễ",
+                "ÉÈẸẺẼÊẾỀỆỂỄ",
+                "óòọỏõôốồộổỗơớờợởỡ",
+                "ÓÒỌỎÕÔỐỒỘỔỖƠỚỜỢỞỠ",
+                "úùụủũưứừựửữ",
+                "ÚÙỤỦŨƯỨỪỰỬỮ",
+                "íìịỉĩ",
+                "ÍÌỊỈĨ",
+                "đ",
+                "ĐÐ",
+                "ýỳỵỷỹ",
+                "ÝỲỴỶỸ" };
+
+
+            for (int i = 1; i < VietnameseSigns.Length; i++)
+                for (int j = 0; j < VietnameseSigns[i].Length; j++)
+                    s = s.Replace(VietnameseSigns[i][j], VietnameseSigns[0][i - 1]);
+            return s.ToUpper();
         }
         
     }
