@@ -1,1 +1,115 @@
- 
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="VietSearchWebService.FilterConfig" Collapsed="true">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\FilterConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VietSearchWebService.RouteConfig" Collapsed="true">
+    <Position X="0.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\RouteConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VietSearchWebService.WebApiConfig" Collapsed="true">
+    <Position X="2.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\WebApiConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VietSearchWebService.MvcApplication" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Global.asax.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VietSearchWebService.Models.ModelObject.City" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\ModelObject\City.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VietSearchWebService.Models.ModelObject.District">
+    <Position X="5.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\ModelObject\District.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VietSearchWebService.Models.ModelObject.Street">
+    <Position X="2.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\ModelObject\Street.cs</FileName>
+      <NewMemberFileName>Street.cs</NewMemberFileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VietSearchWebService.Models.ModelObject.Place">
+    <Position X="4.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\ModelObject\Place.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VietSearchWebService.Models.ModelObject.PlaceType">
+    <Position X="4.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\ModelObject\PlaceType.cs</FileName>
+      <NewMemberFileName>PlaceType.cs</NewMemberFileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VietSearchWebService.Models.ModelObject.PlacePicture">
+    <Position X="7.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\ModelObject\PlacePicture.cs</FileName>
+      <NewMemberFileName>PlacePicture.cs</NewMemberFileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VietSearchWebService.Models.ModelObject.Thing">
+    <Position X="5.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\ModelObject\Thing.cs</FileName>
+      <NewMemberFileName>Thing.cs</NewMemberFileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VietSearchWebService.Models.ModelObject.Account">
+    <Position X="6.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\ModelObject\Account.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VietSearchWebService.Models.ModelObject.Comment">
+    <Position X="8.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\ModelObject\Comment.cs</FileName>
+      <NewMemberFileName>Comment.cs</NewMemberFileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VietSearchWebService.Models.ModelObject.Appoint">
+    <Position X="8.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\ModelObject\Appoint.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VietSearchWebService.Models.ModelObject.Rate">
+    <Position X="5.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\ModelObject\Rate.cs</FileName>
+      <NewMemberFileName>Rate.cs</NewMemberFileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

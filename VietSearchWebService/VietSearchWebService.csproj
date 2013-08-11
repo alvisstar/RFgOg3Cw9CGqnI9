@@ -104,9 +104,32 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\ModelManager\AccountManager.cs" />
+    <Compile Include="Models\ModelManager\AppointManager.cs" />
+    <Compile Include="Models\ModelManager\CommentManager.cs" />
+    <Compile Include="Models\ModelManager\DataProvider.cs" />
+    <Compile Include="Models\ModelManager\PlaceManager.cs" />
+    <Compile Include="Models\ModelManager\PlacePictureManager.cs" />
+    <Compile Include="Models\ModelManager\PlaceTypeManager.cs" />
+    <Compile Include="Models\ModelManager\RateManager.cs" />
+    <Compile Include="Models\ModelManager\StreetManager.cs" />
+    <Compile Include="Models\ModelManager\ThingManager.cs" />
+    <Compile Include="Models\ModelObject\Account.cs" />
+    <Compile Include="Models\ModelObject\Appoint.cs" />
+    <Compile Include="Models\ModelManager\CityManager.cs" />
+    <Compile Include="Models\ModelObject\Comment.cs" />
+    <Compile Include="Models\ModelObject\District.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ModelObject\City.cs" />
+    <Compile Include="Models\ModelManager\DistrictManager.cs" />
+    <Compile Include="Models\ModelObject\Place.cs" />
+    <Compile Include="Models\ModelObject\PlacePicture.cs" />
+    <Compile Include="Models\ModelObject\PlaceType.cs" />
+    <Compile Include="Models\ModelObject\Rate.cs" />
+    <Compile Include="Models\ModelObject\Street.cs" />
+    <Compile Include="Models\ModelObject\Thing.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -126,10 +149,12 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Controllers\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
