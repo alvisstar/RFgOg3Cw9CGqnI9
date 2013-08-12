@@ -12,8 +12,8 @@ namespace VietSearchWebService.Models.ModelManager
     {
         public MenuMap()
         {
-            this.HasKey(t => t.placeId);
-            this.HasKey(t => t.menuItemId);
+            this.HasKey(t => new {t.menuItemId, t.placeId });
+          //  this.HasKey(t => t.menuItemId);
 
             this.ToTable("Menu");
 

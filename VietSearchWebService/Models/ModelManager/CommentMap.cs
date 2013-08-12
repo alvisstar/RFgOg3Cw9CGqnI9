@@ -12,8 +12,9 @@ namespace VietSearchWebService.Models.ModelManager
     {
         public CommentMap()
         {
-            this.HasKey(t => t.placeId);
-            this.HasKey(t => t.accountId);
+            this.HasKey(t => new { t.accountId, t.placeId, t.ordinal });
+          //  this.HasKey(t => t.accountId);
+            //this.HasKey(t => t.ordinal  );
 
             this.ToTable("Comment");
 

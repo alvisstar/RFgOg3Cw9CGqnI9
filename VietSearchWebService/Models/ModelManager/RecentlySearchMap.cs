@@ -8,31 +8,26 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace VietSearchWebService.Models.ModelManager
 {
-    public class AppointMap : EntityTypeConfiguration<Appoint>
+    public class RecentlySearchMap : EntityTypeConfiguration<RecentlySearch>
     {
-        public AppointMap()
+        public RecentlySearchMap()
         {
-
-            this.HasKey(t => new { t.accountId,t.placeId });
+            this.HasKey(t => new { t.placeId, t.accountId });
             //this.HasKey(t => t.accountId);
-            
-            this.ToTable("Appoint");
-            
+
+            this.ToTable("RecentlySearch");
+
             this.Property(t => t.placeId)
                 .HasColumnName("PlaceId")
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
-            this.HasRequired(m => m.place).WithMany(m => m.listAppoint).HasForeignKey(p => p.placeId);
+            this.HasRequired(m => m.place).WithMany(m => m.listRecentlySearch).HasForeignKey(p => p.placeId);
 
             this.Property(t => t.accountId)
                 .HasColumnName("AccountId")
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
-            this.HasRequired(m => m.account).WithMany(m => m.listAppoint).HasForeignKey(p => p.accountId);
+            this.HasRequired(m => m.account).WithMany(m => m.listRecentlySearch).HasForeignKey(p => p.accountId);
 
-            this.Property(t => t.appointContent)
-                .HasColumnName("AppointContent");
-                          
-            this.Property(t => t.isLock)
-                .HasColumnName("IsLock");
+           
         }
     }
 }

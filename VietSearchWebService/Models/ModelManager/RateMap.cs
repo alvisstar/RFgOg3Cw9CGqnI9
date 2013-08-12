@@ -12,8 +12,8 @@ namespace VietSearchWebService.Models.ModelManager
     {
         public RateMap()
         {
-            this.HasKey(t => t.placeId);
-            this.HasKey(t => t.accountId);
+            this.HasKey(t => new { t.accountId, t.placeId });
+            //this.HasKey(t => t.accountId);
 
             this.ToTable("Rate");
 

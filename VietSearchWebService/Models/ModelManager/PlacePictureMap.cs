@@ -12,9 +12,9 @@ namespace VietSearchWebService.Models.ModelManager
     {
         public PlacePictureMap()
         {
-            
-            this.HasKey(t => t.placeId);
-            this.HasKey(t => t.ordinal);
+
+            this.HasKey(t => new { t.placeId, t.ordinal });
+           // this.HasKey(t => t.ordinal);
             
             this.ToTable("PlacePicture");
             

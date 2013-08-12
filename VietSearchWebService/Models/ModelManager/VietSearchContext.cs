@@ -115,8 +115,26 @@ namespace VietSearchWebService.Models.ModelManager
 
         public DbSet<Menu> menus
         {
-            get { return menus; }
-            set { menus = value; }
+            get { return _menus; }
+            set { _menus = value; }
+        }
+
+
+        DbSet<Favourite> _favourites;
+
+        public DbSet<Favourite> favourites
+        {
+            get { return _favourites; }
+            set { _favourites = value; }
+        }
+
+
+        DbSet<RecentlySearch> _recentlySearch;
+
+        public DbSet<RecentlySearch> recentlySearch
+        {
+            get { return _recentlySearch; }
+            set { _recentlySearch = value; }
         }
 
 
@@ -135,6 +153,8 @@ namespace VietSearchWebService.Models.ModelManager
             modelBuilder.Configurations.Add(new MenuItemMap());
             modelBuilder.Configurations.Add(new MenuItemTypeMap());
             modelBuilder.Configurations.Add(new MenuMap());
+            modelBuilder.Configurations.Add(new FavouriteMap());
+            modelBuilder.Configurations.Add(new RecentlySearchMap());
         }
     }
 }

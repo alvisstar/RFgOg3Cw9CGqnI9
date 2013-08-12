@@ -27,7 +27,7 @@ namespace VietSearchWebService.Models.ModelManager
             
             this.Property(t => t.placeTypeId)
                 .HasColumnName("PlaceTypeId");
-            this.HasRequired(m => m.placeType).WithMany(m=>m.listPlace).HasForeignKey(p=>p.placeType);
+            this.HasRequired(m => m.placeType).WithMany(m=>m.listPlace).HasForeignKey(p=>p.placeTypeId);
 
             this.Property(t => t.homeNumber)
                .HasColumnName("HomeNumber");

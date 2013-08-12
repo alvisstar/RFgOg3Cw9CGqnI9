@@ -15,6 +15,8 @@ namespace VietSearchWebService.Models.ModelObject
             listAppoint = new List<Appoint>();
             listComment = new List<Comment>();
             listRate = new List<Rate>();
+            listFavourite = new List<Favourite>();
+            listRecentlySearch = new List<RecentlySearch>();
         }
 
         string _accountId;
@@ -61,6 +63,20 @@ namespace VietSearchWebService.Models.ModelObject
         {
             get { return _listRate; }
             set { _listRate = value; }
+        }
+        ICollection<Favourite> _listFavourite;
+        public ICollection<Favourite> listFavourite
+        {
+            get { return _listFavourite; }
+            set { _listFavourite = value; }
+        }
+
+        ICollection<RecentlySearch> _listRecentlySearch;
+
+        public ICollection<RecentlySearch> listRecentlySearch
+        {
+            get { return _listRecentlySearch; }
+            set { _listRecentlySearch = value; }
         }
     }
 }
