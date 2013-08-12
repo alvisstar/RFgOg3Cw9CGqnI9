@@ -1,27 +1,26 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web;
-using System.Web.Services;
-using System.Web.Services.Protocols;
-using System.ComponentModel;
 
 namespace VietSearchWebService.Models.ModelObject
 {
-    public class Rate
+    public class Menu
     {
-        string _accountId;
+        string _menuItemId;
 
-        public string accountId
+        public string menuItemId
         {
-            get { return _accountId; }
-            set { _accountId = value; }
+            get { return _menuItemId; }
+            set { _menuItemId = value; }
         }
 
-        Account _account;
+        MenuItem _menuItem;
 
-        public Account account
+        public MenuItem menuItem
         {
-            get { return _account; }
-            set { _account = value; }
+            get { return _menuItem; }
+            set { _menuItem = value; }
         }
 
         string _placeId;
@@ -39,15 +38,13 @@ namespace VietSearchWebService.Models.ModelObject
             get { return _place; }
             set { _place = value; }
         }
+        double _price;
 
-        int _mark;
-
-        public int mark
+        public double price
         {
-            get { return _mark; }
-            set { _mark = value; }
+            get { return _price; }
+            set { _price = value; }
         }
-        
         bool _isLock;
 
         public bool isLock

@@ -35,9 +35,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -104,32 +108,38 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\ModelManager\AccountManager.cs" />
-    <Compile Include="Models\ModelManager\AppointManager.cs" />
-    <Compile Include="Models\ModelManager\CommentManager.cs" />
-    <Compile Include="Models\ModelManager\DataProvider.cs" />
-    <Compile Include="Models\ModelManager\PlaceManager.cs" />
-    <Compile Include="Models\ModelManager\PlacePictureManager.cs" />
-    <Compile Include="Models\ModelManager\PlaceTypeManager.cs" />
-    <Compile Include="Models\ModelManager\RateManager.cs" />
-    <Compile Include="Models\ModelManager\StreetManager.cs" />
-    <Compile Include="Models\ModelManager\ThingManager.cs" />
+    <Compile Include="Controllers\ServiceController.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\ModelManager\AccountMap.cs" />
+    <Compile Include="Models\ModelManager\AppointMap.cs" />
+    <Compile Include="Models\ModelManager\CityMap.cs" />
+    <Compile Include="Models\ModelManager\CommentMap.cs" />
+    <Compile Include="Models\ModelManager\DistrictMap.cs" />
+    <Compile Include="Models\ModelManager\MenuMap.cs" />
+    <Compile Include="Models\ModelManager\PlaceMap.cs" />
+    <Compile Include="Models\ModelManager\PlacePictureMap.cs" />
+    <Compile Include="Models\ModelManager\PlaceTypeMap.cs" />
+    <Compile Include="Models\ModelManager\RateMap.cs" />
+    <Compile Include="Models\ModelManager\StreetMap.cs" />
+    <Compile Include="Models\ModelManager\MenuItemMap.cs" />
+    <Compile Include="Models\ModelManager\MenuItemTypeMap.cs" />
+    <Compile Include="Models\ModelManager\VietSearchContext.cs" />
     <Compile Include="Models\ModelObject\Account.cs" />
     <Compile Include="Models\ModelObject\Appoint.cs" />
-    <Compile Include="Models\ModelManager\CityManager.cs" />
     <Compile Include="Models\ModelObject\Comment.cs" />
     <Compile Include="Models\ModelObject\District.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ModelObject\City.cs" />
-    <Compile Include="Models\ModelManager\DistrictManager.cs" />
+    <Compile Include="Models\ModelObject\Menu.cs" />
     <Compile Include="Models\ModelObject\Place.cs" />
     <Compile Include="Models\ModelObject\PlacePicture.cs" />
     <Compile Include="Models\ModelObject\PlaceType.cs" />
     <Compile Include="Models\ModelObject\Rate.cs" />
     <Compile Include="Models\ModelObject\Street.cs" />
-    <Compile Include="Models\ModelObject\Thing.cs" />
+    <Compile Include="Models\ModelObject\MenuItem.cs" />
+    <Compile Include="Models\ModelObject\MenuItemType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -148,7 +158,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
