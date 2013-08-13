@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PlaceTypes>
+  <PlaceType id="PLT1000001">
+    <Name>cafe</Name>
+    <Name>caphe</Name>
+    <Name>coffee</Name>
+    <Name>cphe</Name>
+  </PlaceType>
+</PlaceTypes>

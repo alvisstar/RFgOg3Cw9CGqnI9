@@ -36,8 +36,8 @@ namespace VietSearchWebService.Models.ModelObject
             set { _picture = value; }
         }
         
-        string _isLock;
-        public string isLock
+        bool _isLock;
+        public bool  isLock
         {
             get { return _isLock; }
             set { _isLock = value; }

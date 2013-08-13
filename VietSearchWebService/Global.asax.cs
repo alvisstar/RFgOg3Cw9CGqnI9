@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Data.Entity;
 using VietSearchWebService.Models.ModelManager;
+using VietSearch.Utility;
 
 namespace VietSearchWebService
 {
@@ -22,6 +23,15 @@ namespace VietSearchWebService
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             Database.SetInitializer<VietSearchContext>(null);
+            InitXml();
+        }
+
+        public void InitXml()
+        {
+            XMLHelper.InitDocStreet(AppDomain.CurrentDomain.BaseDirectory + "\\streetkeyword.xml");
+            XMLHelper.InitDocPlaceType(AppDomain.CurrentDomain.BaseDirectory + "\\placetypekeyword.xml");
+            XMLHelper.InitDocPlace(AppDomain.CurrentDomain.BaseDirectory + "\\placekeyword.xml");
+            XMLHelper.InitDocDistrict(AppDomain.CurrentDomain.BaseDirectory + "\\districtkeyword.xml");
         }
     }
 }

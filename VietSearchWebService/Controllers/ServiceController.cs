@@ -6,6 +6,9 @@ using System.Web.Mvc;
 using System.Web.Http;
 using VietSearchWebService.Models.ModelManager;
 using VietSearchWebService.Models.ModelObject;
+using VietSearch.Utility;
+using VietSearch.Utility.Keyword;
+using VietSearchWebService.Models.SearchProvider;
 
 namespace VietSearchWebService.Controllers
 {
@@ -14,18 +17,29 @@ namespace VietSearchWebService.Controllers
         //
         // GET: /Service/
 
-        VietSearchContext vietSearchContext;
-
+        
+        SearchProvider searchProvider;
         public ServiceController()
         {
-            vietSearchContext = new VietSearchContext();
+
+            
+            searchProvider = new SearchProvider();
+            
         }
 
-        public string Get()
+        public List<Place> Get(string keyword,string cityId)
         {
+            List<Place> listPlace = new List<Place>();
+            keyword = StringHelper.StandardizeString(keyword);
+            listPlace = searchProvider.Search(keyword, cityId);
+            //List<District> listDistrict = new List<District>();
+
            
-            var roles = vietSearchContext.streets.Where(r => r.district.city.cityId == "CI100000049").Select(r => new { r.district,r.district.city,r.districtId,r.streetName }).ToList();         
-            return "";
+            //XMLHelper.InitDocStreet(AppDomain.CurrentDomain.BaseDirectory + "\\streetkeyword.xml");
+            //List<StreetKeyword> list = XMLHelper.GetListStreetId(keyword);
+
+            //var roles = vietSearchContext.streets.Where(r => r.district.city.cityId == "CI100000049").Select(r => new { r.district,r.district.city,r.districtId,r.streetName }).ToList();         
+            return listPlace;
         }
 
     }

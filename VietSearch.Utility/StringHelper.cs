@@ -41,6 +41,26 @@ namespace VietSearch.Utility
                     s = s.Replace(VietnameseSigns[i][j], VietnameseSigns[0][i - 1]);
             return s.ToUpper();
         }
+
+        public static string Erase(string strInput, string strErase)
+        {
+            string strOutput = strInput;
+            if (null != strErase && strErase.Length > 0)
+            {
+                int idx = strErase.IndexOf(strInput);
+                if (idx >= 0)
+                {
+                    strOutput = String.Empty;
+                }
+                else
+                {
+                    strOutput = strInput.Replace(strErase, @"");
+                    strOutput = strOutput.Trim();
+                }
+            }
+
+            return strOutput;
+        }
         
     }
 }

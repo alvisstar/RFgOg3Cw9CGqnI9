@@ -144,6 +144,12 @@
     <Compile Include="Models\ModelObject\Street.cs" />
     <Compile Include="Models\ModelObject\MenuItem.cs" />
     <Compile Include="Models\ModelObject\MenuItemType.cs" />
+    <Compile Include="Models\SearchProvider\DistrictSearchProvider.cs" />
+    <Compile Include="Models\SearchProvider\PlaceSearchProvider.cs" />
+    <Compile Include="Models\SearchProvider\PlaceTypeSearchProvider.cs" />
+    <Compile Include="Models\SearchProvider\SearchObject.cs" />
+    <Compile Include="Models\SearchProvider\SearchProvider.cs" />
+    <Compile Include="Models\SearchProvider\StreetSearchProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -155,7 +161,9 @@
       <DependentUpon>VietSearch.mdf</DependentUpon>
     </Content>
     <Content Include="Global.asax" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -164,12 +172,20 @@
     </Content>
     <Content Include="Views\Web.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\VietSearch.Utility\VietSearch.Utility.csproj">
+      <Project>{19B3CCF8-43D2-441A-9A32-048B7429F9CC}</Project>
+      <Name>VietSearch.Utility</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -186,8 +202,8 @@
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
-          <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>4470</DevelopmentServerPort>
+          <AutoAssignPort>False</AutoAssignPort>
+          <DevelopmentServerPort>21222</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
