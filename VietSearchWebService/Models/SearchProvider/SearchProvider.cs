@@ -40,10 +40,10 @@ namespace VietSearchWebService.Models.SearchProvider
                     && r.placeTypeId.Contains(strPlaceTypeId)
                     && r.streetId.Contains(strStreetId)
                     && r.placeId.Contains(strPlaceId)
-                    &&r.isLock==false).Select(r => new {r.street,r.district,r.city, r.placeType, r.placeId, r.placeName,r.homeNumber,r.longitude,r.latitude }).ToList();
+                    &&r.isLock==false).Select(r => new {r.street, r.placeType, r.placeId, r.placeName,r.homeNumber,r.longitude,r.latitude }).ToList();
                 for (int j = 0; j < a.Count; j++)
                 {
-                    listTemp.Add(new Place { street=a[j].street,district = a[j].district,city =a[j].city, placeType = a[j].placeType, placeId = a[j].placeId,placeName=a[j].placeName,homeNumber = a[j].homeNumber,longitude=a[j].longitude,latitude=a[j].latitude });
+                    listTemp.Add(new Place { street=a[j].street, placeType = a[j].placeType, placeId = a[j].placeId,placeName=a[j].placeName,homeNumber = a[j].homeNumber,longitude=a[j].longitude,latitude=a[j].latitude });
                 }
 
                 listPlace.AddRange(listTemp);
