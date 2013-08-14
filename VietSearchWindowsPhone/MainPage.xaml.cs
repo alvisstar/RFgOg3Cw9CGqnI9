@@ -103,6 +103,10 @@ namespace VietSearchWindowsPhone
         {
             string uri = App.SERVICE_URI + "/Get?keyword=" + txtSearch.Text + "&&cityId=CI100000049";
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(uri);
+            request.ContentType = "application/json";
+            request.Accept = "application/json";
+            request.Method = "GET";
+            
             request.BeginGetResponse(new AsyncCallback(GetPlaceCallBack), request);
         }
         
