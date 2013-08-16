@@ -7,6 +7,11 @@ namespace VietSearchWebService.Models.ModelObject
 {
     public class Favourite
     {
+        public Favourite()
+        {
+            account = new Account();
+            place = new Place();
+        }
         string _placeId;
 
         public string placeId

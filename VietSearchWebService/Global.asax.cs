@@ -23,7 +23,7 @@ namespace VietSearchWebService
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             Database.SetInitializer<VietSearchContext>(null);
-            InitXml();
+            //InitXml();
         }
 
         public void InitXml()
@@ -33,5 +33,7 @@ namespace VietSearchWebService
             XMLHelper.InitDocPlace(AppDomain.CurrentDomain.BaseDirectory + "\\placekeyword.xml");
             XMLHelper.InitDocDistrict(AppDomain.CurrentDomain.BaseDirectory + "\\districtkeyword.xml");
         }
+
+       
     }
 }

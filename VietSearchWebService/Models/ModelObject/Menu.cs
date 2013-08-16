@@ -7,6 +7,11 @@ namespace VietSearchWebService.Models.ModelObject
 {
     public class Menu
     {
+        public Menu()
+        {
+            menuItem = new MenuItem();
+            place = new Place();
+        }
         string _menuItemId;
 
         public string menuItemId

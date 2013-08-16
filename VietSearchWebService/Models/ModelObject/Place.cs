@@ -19,6 +19,10 @@ namespace VietSearchWebService.Models.ModelObject
             listMenu = new List<Menu>();
             listFavourite = new List<Favourite>();
             listRecentlySearch = new List<RecentlySearch>();
+            street = new Street();
+            district = new District();
+            city = new City();
+            placeType = new PlaceType();
         }
 
         string _placeId;

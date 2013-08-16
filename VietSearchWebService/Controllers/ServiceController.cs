@@ -9,6 +9,7 @@ using VietSearchWebService.Models.ModelObject;
 using VietSearch.Utility;
 using VietSearch.Utility.Keyword;
 using VietSearchWebService.Models.SearchProvider;
+using VietSearchWebService.Models.AutoCompleteProvider;
 
 namespace VietSearchWebService.Controllers
 {
@@ -19,28 +20,26 @@ namespace VietSearchWebService.Controllers
 
         
         SearchProvider searchProvider;
+       
         public ServiceController()
         {
 
             
             searchProvider = new SearchProvider();
             
+            
         }
 
-        public List<Place> Get(string keyword,string cityId)
+        public SearchResultObject Get(string keyword,string cityId,int index)
         {
-            List<Place> listPlace = new List<Place>();
+            SearchResultObject searchResultObject = new SearchResultObject();
             keyword = StringHelper.StandardizeString(keyword);
-            listPlace = searchProvider.Search(keyword, cityId);
-            //List<District> listDistrict = new List<District>();
-
-           
-            //XMLHelper.InitDocStreet(AppDomain.CurrentDomain.BaseDirectory + "\\streetkeyword.xml");
-            //List<StreetKeyword> list = XMLHelper.GetListStreetId(keyword);
-
-            //var roles = vietSearchContext.streets.Where(r => r.district.city.cityId == "CI100000049").Select(r => new { r.district,r.district.city,r.districtId,r.streetName }).ToList();         
-            return listPlace;
+            searchResultObject = searchProvider.Search(keyword, cityId,index);           
+            return searchResultObject;
         }
+
+        
+        
 
     }
 }

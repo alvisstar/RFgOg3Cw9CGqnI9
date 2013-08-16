@@ -8,6 +8,11 @@ namespace VietSearchWebService.Models.ModelObject
 {
     public class Rate
     {
+        public Rate()
+        {
+            account = new Account();
+            place = new Place();
+        }
         string _accountId;
 
         public string accountId

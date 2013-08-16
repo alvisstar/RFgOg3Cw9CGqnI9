@@ -8,6 +8,11 @@ namespace VietSearchWebService.Models.ModelObject
 {
     public class Comment
     {
+        public Comment()
+        {
+            account = new Account();
+            place = new Place();
+        }
         string _accountId;
 
         public string accountId

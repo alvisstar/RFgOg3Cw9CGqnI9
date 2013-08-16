@@ -12,6 +12,7 @@ namespace VietSearchWebService.Models.ModelObject
         public MenuItem()
         {
             listMenu = new List<Menu>();
+            menuItemType = new MenuItemType();
         }
 
         string _menuItemId;

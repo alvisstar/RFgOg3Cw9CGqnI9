@@ -7,6 +7,11 @@ namespace VietSearchWebService.Models.ModelObject
 {
     public class RecentlySearch
     {
+        public RecentlySearch()
+        {
+            account = new Account();
+            place = new Place();
+        }
         string _placeId;
 
         public string placeId

@@ -8,6 +8,10 @@ namespace VietSearchWebService.Models.ModelObject
 {
     public class PlacePicture
     {
+        public PlacePicture()
+        {
+            place = new Place();
+        }
         string _placeId;
 
         public string placeId

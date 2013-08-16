@@ -8,6 +8,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using System.ComponentModel;
 
 namespace VietSearchWindowsPhone.ViewModels
 {
@@ -18,7 +19,23 @@ namespace VietSearchWindowsPhone.ViewModels
         public string districtName
         {
             get { return _districtName; }
-            set { _districtName = value; }
+            set
+            {
+                if (value != _districtName)
+                {
+                    _districtName = value;
+                    NotifyChanged("districtName");
+                }
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void NotifyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
         }
     }
 }

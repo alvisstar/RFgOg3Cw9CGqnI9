@@ -37,7 +37,7 @@ namespace VietSearchWebService.Models.SearchProvider
                         SearchObject searchObject = new SearchObject();
                         searchObject.cityId = cityId;                     
                         searchObject.placeTypeId = placeTypeId;
-                        searchObject.streetId = listDistrictKeyword[i].districtKeywordId;
+                        searchObject.districtId = listDistrictKeyword[i].districtKeywordId;
                         listSearchObject.Add(searchObject);         
 
                     }

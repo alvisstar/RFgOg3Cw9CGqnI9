@@ -14,7 +14,7 @@ namespace VietSearch.Utility
             return result.Replace(" ", "").ToLower();
         }
 
-        private static string ConvertToASCII(string text)
+        public static string ConvertToASCII(string text)
         {
             string s = text;
             string[] VietnameseSigns = new string[]

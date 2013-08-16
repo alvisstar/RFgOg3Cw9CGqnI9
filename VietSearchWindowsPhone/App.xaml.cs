@@ -24,7 +24,8 @@ namespace VietSearchWindowsPhone
         /// </summary>
         /// <returns>The MainViewModel object.</returns>
         /// 
-        public const string SERVICE_URI = "http://localhost:21222/api/Service"; 
+        public const string SERVICE_URI = "http://localhost:21222/api/Service";
+        public const string HANDLEINPUT_URI = "http://localhost:21222/api/HandleInput"; 
 
 
         public static MainViewModel ViewModel

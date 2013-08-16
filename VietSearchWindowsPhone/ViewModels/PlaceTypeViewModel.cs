@@ -11,7 +11,7 @@ using System.Windows.Shapes;
 
 namespace VietSearchWindowsPhone.ViewModels
 {
-    public class PlaceTypeModel
+    public class PlaceTypeViewModel
     {
         string _placeTypeId;
 

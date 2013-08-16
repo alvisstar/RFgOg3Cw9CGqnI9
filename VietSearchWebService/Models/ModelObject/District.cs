@@ -16,6 +16,7 @@ namespace VietSearchWebService.Models.ModelObject
         {
             listStreet = new List<Street>();
             listPlace = new List<Place>();
+            city = new City();
         }
 
         string _districtId;       

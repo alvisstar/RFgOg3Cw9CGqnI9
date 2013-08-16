@@ -8,6 +8,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using System.ComponentModel;
 
 namespace VietSearchWindowsPhone.ViewModels
 {
@@ -18,7 +19,14 @@ namespace VietSearchWindowsPhone.ViewModels
         public string placeName
         {
             get { return _placeName; }
-            set { _placeName = value; }
+            set
+            {
+                if (value != _placeName)
+                {
+                    _placeName = value;
+                    NotifyChanged("placeName");
+                }
+            }
         }
 
         double _rate;
@@ -35,7 +43,14 @@ namespace VietSearchWindowsPhone.ViewModels
         public int ordinal
         {
             get { return _ordinal; }
-            set { _ordinal = value; }
+            set
+            {
+                if (value != _ordinal)
+                {
+                    _ordinal = value;
+                    NotifyChanged("ordinal");
+                }
+            }
         }
 
         string _homeNumber;
@@ -43,11 +58,18 @@ namespace VietSearchWindowsPhone.ViewModels
         public string homeNumber
         {
             get { return _homeNumber; }
-            set { _homeNumber = value; }
+            set
+            {
+                if (value != _homeNumber)
+                {
+                    _homeNumber = value;
+                    NotifyChanged("homeNumber");
+                }
+            }
         }
-        PlaceTypeModel _placeType;
+        PlaceTypeViewModel _placeType;
 
-        public PlaceTypeModel placeType
+        public PlaceTypeViewModel placeType
         {
             get { return _placeType; }
             set { _placeType = value; }
@@ -79,7 +101,14 @@ namespace VietSearchWindowsPhone.ViewModels
         public string fullAddress
         {
             get { return _fullAddress; }
-            set { _fullAddress = value; }
+            set
+            {
+                if (value != _fullAddress)
+                {
+                    _fullAddress = value;
+                    NotifyChanged("fullAddress");
+                }
+            }
         }
 
         double _longitude;
@@ -95,6 +124,15 @@ namespace VietSearchWindowsPhone.ViewModels
         {
             get { return _latitude; }
             set { _latitude = value; }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void NotifyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
         }
     }
 }

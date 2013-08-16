@@ -8,6 +8,11 @@ namespace VietSearchWebService.Models.ModelObject
 {
     public class Appoint
     {
+        public Appoint()
+        {
+            account = new Account();
+            place = new Place();
+        }
         string _accountId;
 
         public string accountId
