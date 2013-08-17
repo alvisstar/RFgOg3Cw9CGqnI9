@@ -99,7 +99,8 @@ namespace VietSearchWindowsPhone
                     for (int i = 0; i < searchResultObjectTemp.listResultPlace.Count; i++)
                     {
                         searchResultObjectTemp.listResultPlace[i].fullAddress = searchResultObjectTemp.listResultPlace[i].homeNumber + " " + searchResultObjectTemp.listResultPlace[i].street.streetName + ", " + searchResultObjectTemp.listResultPlace[i].district.districtName;
-                        searchResultObjectTemp.listResultPlace[i].ordinal = ordinal;
+                        searchResultObjectTemp.listResultPlace[i].ordinal   = ordinal;
+                        searchResultObjectTemp.listResultPlace[i].placeId   = searchResultObjectTemp.listResultPlace[i].placeId;
                         searchResultObjectTemp.listResultPlace[i].placeName = searchResultObjectTemp.listResultPlace[i].placeName.Replace("\r", "");
                         searchResultObjectTemp.listResultPlace[i].placeName = searchResultObjectTemp.listResultPlace[i].placeName.Replace("\n", "");
                         searchResultObjectTemp.listResultPlace[i].placeName = searchResultObjectTemp.listResultPlace[i].placeName.ToUpper();
@@ -266,6 +267,17 @@ namespace VietSearchWindowsPhone
             ApplicationBar.IsVisible = true;
 
            
+        }
+
+        private void listSearchResult_OnItemTap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            PlaceViewModel item = ((FrameworkElement)sender).DataContext as PlaceViewModel;
+            if (item != null)
+            {
+
+                NavigationService.Navigate(new Uri("/PlaceDetailPage.xaml?placeId=" + item.placeId, UriKind.Relative));
+
+            }
         }
 
     }

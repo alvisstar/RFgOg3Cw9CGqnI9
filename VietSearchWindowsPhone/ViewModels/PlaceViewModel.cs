@@ -14,6 +14,21 @@ namespace VietSearchWindowsPhone.ViewModels
 {
     public class PlaceViewModel
     {
+        string _placeId;
+
+        public string placeId
+        {
+            get { return _placeId; }
+            set
+            {
+                if (value != _placeId)
+                {
+                    _placeId = value;
+                    NotifyChanged("placeId");
+                }
+            }
+        }
+
         string _placeName;
 
         public string placeName
@@ -125,6 +140,8 @@ namespace VietSearchWindowsPhone.ViewModels
             get { return _latitude; }
             set { _latitude = value; }
         }
+
+        
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void NotifyChanged(string propertyName)

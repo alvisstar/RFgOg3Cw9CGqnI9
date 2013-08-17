@@ -39,6 +39,7 @@ namespace VietSearchWebService.Models.AutoCompleteProvider
             listSuggest = new List<string>();
 
             var streetQuery = (from street in vietSearchContext.streets where street.isLock == false select new { street, street.district }).ToList();
+           
             listStreet = streetQuery.Select(t => new Street { streetId = t.street.streetId, streetName=t.street.streetName,district = t.district }).ToList();
            
             listDistrict = (from district in vietSearchContext.districts where district.isLock == false select district).ToList();

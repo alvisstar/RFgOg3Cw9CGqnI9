@@ -115,6 +115,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\HandleInputController.cs" />
+    <Compile Include="Controllers\PlaceController.cs" />
     <Compile Include="Controllers\ServiceController.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AutoCompleteProvider\AutoCompleteProvider.cs" />

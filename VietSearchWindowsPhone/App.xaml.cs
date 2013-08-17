@@ -12,12 +12,14 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using VietSearchWindowsPhone.ViewModels;
 
 namespace VietSearchWindowsPhone
 {
     public partial class App : Application
     {
         private static MainViewModel viewModel = null;
+        
 
         /// <summary>
         /// A static ViewModel used by the views to bind against.
@@ -25,8 +27,18 @@ namespace VietSearchWindowsPhone
         /// <returns>The MainViewModel object.</returns>
         /// 
         public const string SERVICE_URI = "http://localhost:21222/api/Service";
-        public const string HANDLEINPUT_URI = "http://localhost:21222/api/HandleInput"; 
+        public const string HANDLEINPUT_URI = "http://localhost:21222/api/HandleInput";
+        public const string PLACE_URI = "http://localhost:21222/api/Place";
 
+
+        private static PlaceViewModel _currentPlace = null;
+
+        public static PlaceViewModel currentPlace
+        {
+            get { return App._currentPlace; }
+            set { App._currentPlace = value; }
+        }
+    
 
         public static MainViewModel ViewModel
         {

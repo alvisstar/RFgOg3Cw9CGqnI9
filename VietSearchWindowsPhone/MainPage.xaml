@@ -132,7 +132,7 @@
                 </Setter>
             </Style>
             <DataTemplate x:Name="ListBoxItemTemplate">
-                <Border Padding="0,10,0,8" BorderThickness="0,0,0,2" BorderBrush="#01636A">
+                <Border Padding="0,10,0,8" BorderThickness="0,0,0,2" BorderBrush="#01636A" Tap="listSearchResult_OnItemTap">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
