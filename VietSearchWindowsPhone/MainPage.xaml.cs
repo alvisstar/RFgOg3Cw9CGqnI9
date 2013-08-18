@@ -17,6 +17,7 @@ using System.Text;
 using System.Windows.Data;
 using Telerik.Windows.Controls;
 using Microsoft.Phone.Shell;
+using Microsoft.Phone.Info;
 
 namespace VietSearchWindowsPhone
 {
@@ -43,10 +44,10 @@ namespace VietSearchWindowsPhone
             searchResultObjectViewModel = new SearchResultObjectViewModel();
             Refresh();
             this.DataContext = searchResultObjectViewModel;
-            this.Loaded += new RoutedEventHandler(MainPage_Loaded);
-            string uri = App.HANDLEINPUT_URI + "/Get";
-            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(uri);
-            request.BeginGetResponse(new AsyncCallback(GetPlaceCallBack), request);
+            long a = DeviceStatus.ApplicationCurrentMemoryUsage / (1024 * 1024);
+           // string uri = App.HANDLEINPUT_URI + "/Get";
+           // HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(uri);
+            //request.BeginGetResponse(new AsyncCallback(GetPlaceCallBack), request);
             borderNumResult.Visibility = Visibility.Collapsed;
             listSearchResult.Loaded += new RoutedEventHandler(listSearchResult_Loaded);
 
@@ -133,13 +134,7 @@ namespace VietSearchWindowsPhone
 
 
         // Load data for the ViewModel Items
-        private void MainPage_Loaded(object sender, RoutedEventArgs e)
-        {
-            if (!App.ViewModel.IsDataLoaded)
-            {
-                App.ViewModel.LoadData();
-            }
-        }
+       
 
 
 
@@ -275,7 +270,7 @@ namespace VietSearchWindowsPhone
             if (item != null)
             {
 
-                NavigationService.Navigate(new Uri("/PlaceDetailPage.xaml?placeId=" + item.placeId, UriKind.Relative));
+                NavigationService.Navigate(new Uri("/View/PlaceDetailPage.xaml?placeId=" + item.placeId, UriKind.Relative));
 
             }
         }

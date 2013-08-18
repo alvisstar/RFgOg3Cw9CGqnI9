@@ -13,8 +13,9 @@ using Microsoft.Phone.Controls;
 using VietSearchWindowsPhone.ViewModels;
 using System.Runtime.Serialization.Json;
 using System.IO;
-
-namespace VietSearchWindowsPhone
+using Facebook.Client;
+using VietSearchWindowsPhone.FacebookUtility;
+namespace VietSearchWindowsPhone.View
 {
     public partial class PlaceDetailPage : PhoneApplicationPage
     {
@@ -60,6 +61,46 @@ namespace VietSearchWindowsPhone
             });
         }
 
+        private void btnComment_Click(object sender, RoutedEventArgs e)
+        {
+            if ("".Equals(FacebookClientHelper.Instance.accessToken))
+            {
+                MessageBoxResult result = MessageBox.Show("Xác Nhận Đăng Nhập Facebook", "", MessageBoxButton.OKCancel);
+
+                if (result == MessageBoxResult.OK)
+                {
+                    NavigationService.Navigate(new Uri("/View/FacebookLoginPage.xaml", UriKind.Relative));
+                }
+
+            }
+            else
+            {
+                CommentViewModel commentViewModel = new CommentViewModel();
+                commentViewModel.accountId = FacebookClientHelper.Instance.userId;
+                commentViewModel.placeId = placeViewModel.placeId;
+                commentViewModel.commentContent = txtComment.Text;
+                commentViewModel.isLock = false;
+                MemoryStream memoryStream = new MemoryStream();
+                DataContractJsonSerializer jsonSer =
+                new DataContractJsonSerializer(typeof(CommentViewModel));
+                jsonSer.WriteObject(memoryStream, commentViewModel);
+                memoryStream.Position = 0;
+                StreamReader sr = new StreamReader(memoryStream);
+                var json = sr.ReadToEnd();
+                var webClient = new WebClient();
+                webClient.Headers[HttpRequestHeader.ContentType] = "application/json";
+                webClient.UploadStringCompleted += this.CompleteComment;
+                webClient.UploadStringAsync(new Uri(App.COMMENT_URI), "POST", json);
+               
+            }
+
+
+        }
+        private void CompleteComment(object sender, UploadStringCompletedEventArgs e)
+        {
+
+            MessageBox.Show("Bình Luận Thành Công");
+        }
        
     }
 }

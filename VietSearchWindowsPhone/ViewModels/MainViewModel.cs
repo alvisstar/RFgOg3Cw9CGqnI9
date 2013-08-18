@@ -44,7 +44,7 @@ namespace VietSearchWindowsPhone
                 if (value != _sampleProperty)
                 {
                     _sampleProperty = value;
-                    NotifyPropertyChanged("SampleProperty");
+                    //NotifyPropertyChanged("SampleProperty");
                 }
             }
         }

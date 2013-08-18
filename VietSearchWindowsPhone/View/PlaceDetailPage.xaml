@@ -6,9 +6,12 @@
     xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"    
+    xmlns:facebookControls="clr-namespace:Facebook.Client;assembly=Facebook.Client"
     xmlns:telerikPrimitives="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Primitives"
-    xmlns:telerikCore="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Core" xmlns:telerikInput="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Input" xmlns:controlsPrimitives="clr-namespace:Microsoft.Phone.Controls.Primitives;assembly=Microsoft.Phone.Controls" 
-    x:Class="VietSearchWindowsPhone.PlaceDetailPage"    
+    xmlns:telerikCore="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Core" 
+    xmlns:telerikInput="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Input"
+    xmlns:controlsPrimitives="clr-namespace:Microsoft.Phone.Controls.Primitives;assembly=Microsoft.Phone.Controls" 
+    x:Class="VietSearchWindowsPhone.View.PlaceDetailPage"    
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="696"
     SupportedOrientations="Portrait"  Orientation="Portrait"
     shell:SystemTray.IsVisible="True">
@@ -75,8 +78,8 @@
             </Setter>
         </Style>
     </phone:PhoneApplicationPage.Resources>
-
-    <!--Sample code showing usage of ApplicationBar-->
+    
+        <!--Sample code showing usage of ApplicationBar-->
     <!--<phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
             <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="Button 1"/>
@@ -145,17 +148,52 @@
             <!--Pivot item two-->
             <controls:PivotItem Header="Thông Tin">
                 <!--Triple line list no text wrapping-->
-                <ListBox x:Name="SecondListBox" Margin="0,0,-12,0" ItemsSource="{Binding Items}">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Margin="0,0,0,17">
-                                <TextBlock Text="{Binding LineOne}" TextWrapping="NoWrap" Margin="12,0,0,0" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                                <TextBlock Text="{Binding LineThree}" TextWrapping="NoWrap" Margin="12,-6,0,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto">
+                            
+                        </RowDefinition>
+                        <RowDefinition Height="Auto">
+
+                        </RowDefinition>
+                        <RowDefinition Height="Auto">
+
+                        </RowDefinition>
+                    </Grid.RowDefinitions>
+                      
+                    <StackPanel Grid.Row="0" Orientation="Vertical"></StackPanel>
+                    <StackPanel  Orientation="Horizontal">
+                        <TextBlock Text="Tên Địa Điểm:">                        
+                        </TextBlock>
+                        <TextBlock Text="Tên Địa Điểm">
+                        </TextBlock>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1"  Orientation="Horizontal">
+                        <TextBlock Text="Số Điện Thoại:">
+                        </TextBlock>
+                        <TextBlock Text="Số Điện Thoại">
+                        </TextBlock>
+                    </StackPanel>
+                    <Grid Grid.Row="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto">
+
+                            </RowDefinition>
+                            <RowDefinition Height="Auto">
+
+                            </RowDefinition>
+                            <RowDefinition Height="Auto">
+
+                            </RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Text="Bình Luận:">
+                        </TextBlock>
+                        <TextBox x:Name="txtComment" Grid.Row="1"></TextBox>
+                        <Button Grid.Row="2" Width="200" Height="70" Content="Bình Luận" Click="btnComment_Click"></Button>
+                    </Grid>
+                </Grid>
             </controls:PivotItem>
+           
         </controls:Pivot>
 
     </Grid>

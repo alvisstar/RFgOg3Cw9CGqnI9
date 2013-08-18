@@ -29,6 +29,8 @@ namespace VietSearchWindowsPhone
         public const string SERVICE_URI = "http://localhost:21222/api/Service";
         public const string HANDLEINPUT_URI = "http://localhost:21222/api/HandleInput";
         public const string PLACE_URI = "http://localhost:21222/api/Place";
+        public const string ACCOUNT_URI = "http://localhost:21222/api/Account";
+        public const string COMMENT_URI = "http://localhost:21222/api/Comment";
 
 
         private static PlaceViewModel _currentPlace = null;
