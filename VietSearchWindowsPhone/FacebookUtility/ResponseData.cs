@@ -9,16 +9,17 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 
-namespace VietSearchWindowsPhone.ViewModels
+namespace VietSearchWindowsPhone.FacebookUtility
 {
-    public class CityViewModel
+    public class ResponseData
     {
-        string _cityName = "";
+        public string id { get; set; }
+        public ErrorData error { get; set; }
+    }
 
-        public string cityName 
-        {
-            get { return _cityName; }
-            set { _cityName = value; }
-        }
+    public class ErrorData
+    {
+        public int code { get; set; }
+        public int error_subcode { get; set; }
     }
 }

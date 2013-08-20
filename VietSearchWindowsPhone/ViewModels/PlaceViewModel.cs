@@ -14,7 +14,30 @@ namespace VietSearchWindowsPhone.ViewModels
 {
     public class PlaceViewModel
     {
-        string _placeName;
+
+        public PlaceViewModel()
+        {
+            placeType = new PlaceTypeViewModel();
+            street = new StreetViewModel();
+            district = new DistrictViewModel();
+            city = new CityViewModel();
+        }
+        string _placeId = "";
+
+        public string placeId
+        {
+            get { return _placeId; }
+            set
+            {
+                if (value != _placeId)
+                {
+                    _placeId = value;
+                  //  NotifyChanged("placeId");
+                }
+            }
+        }
+
+        string _placeName = "";
 
         public string placeName
         {
@@ -24,12 +47,12 @@ namespace VietSearchWindowsPhone.ViewModels
                 if (value != _placeName)
                 {
                     _placeName = value;
-                    NotifyChanged("placeName");
+                   // NotifyChanged("placeName");
                 }
             }
         }
 
-        double _rate;
+        double _rate =0;
 
         public double rate
         {
@@ -38,7 +61,7 @@ namespace VietSearchWindowsPhone.ViewModels
         }
 
 
-        int _ordinal;
+        int _ordinal =1;
 
         public int ordinal
         {
@@ -48,12 +71,12 @@ namespace VietSearchWindowsPhone.ViewModels
                 if (value != _ordinal)
                 {
                     _ordinal = value;
-                    NotifyChanged("ordinal");
+                    //NotifyChanged("ordinal");
                 }
             }
         }
 
-        string _homeNumber;
+        string _homeNumber = "";
 
         public string homeNumber
         {
@@ -63,7 +86,7 @@ namespace VietSearchWindowsPhone.ViewModels
                 if (value != _homeNumber)
                 {
                     _homeNumber = value;
-                    NotifyChanged("homeNumber");
+                    //NotifyChanged("homeNumber");
                 }
             }
         }
@@ -96,7 +119,7 @@ namespace VietSearchWindowsPhone.ViewModels
             set { _city = value; }
         }
 
-        string _fullAddress;
+        string _fullAddress = ""; 
 
         public string fullAddress
         {
@@ -106,19 +129,19 @@ namespace VietSearchWindowsPhone.ViewModels
                 if (value != _fullAddress)
                 {
                     _fullAddress = value;
-                    NotifyChanged("fullAddress");
+                   // NotifyChanged("fullAddress");
                 }
             }
         }
 
-        double _longitude;
+        double _longitude =0;
 
         public double longitude
         {
             get { return _longitude; }
             set { _longitude = value; }
         }
-        double _latitude;
+        double _latitude =0;
 
         public double latitude
         {
@@ -126,13 +149,15 @@ namespace VietSearchWindowsPhone.ViewModels
             set { _latitude = value; }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void NotifyChanged(string propertyName)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
+        
+
+        //public event PropertyChangedEventHandler PropertyChanged;
+        //public void NotifyChanged(string propertyName)
+        //{
+        //    if (PropertyChanged != null)
+        //    {
+        //        PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        //    }
+        //}
     }
 }

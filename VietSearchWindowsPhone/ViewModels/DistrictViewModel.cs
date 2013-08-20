@@ -9,12 +9,11 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.ComponentModel;
-
 namespace VietSearchWindowsPhone.ViewModels
 {
     public class DistrictViewModel
     {
-        string _districtName;
+        string _districtName = "";
 
         public string districtName
         {
@@ -24,18 +23,18 @@ namespace VietSearchWindowsPhone.ViewModels
                 if (value != _districtName)
                 {
                     _districtName = value;
-                    NotifyChanged("districtName");
+                    //NotifyChanged("districtName");
                 }
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void NotifyChanged(string propertyName)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
+        //public event PropertyChangedEventHandler PropertyChanged;
+        //public void NotifyChanged(string propertyName)
+        //{
+        //    if (PropertyChanged != null)
+        //    {
+        //        PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        //    }
+        //}
     }
 }

@@ -76,18 +76,7 @@
 		</Style>
 	</phone:PhoneApplicationPage.Resources>
  
-    <!--Sample code showing usage of ApplicationBar-->
-    <!--<phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="Button 1"/>
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="Button 2"/>
-            <shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem Text="MenuItem 1"/>
-                <shell:ApplicationBarMenuItem Text="MenuItem 2"/>
-            </shell:ApplicationBar.MenuItems>
-        </shell:ApplicationBar>
-    </phone:PhoneApplicationPage.ApplicationBar>-->
-
+    
 	<phone:PhoneApplicationPage.FontFamily>
 		<StaticResource ResourceKey="PhoneFontFamilyNormal"/>
 	</phone:PhoneApplicationPage.FontFamily>
@@ -132,7 +121,7 @@
                 </Setter>
             </Style>
             <DataTemplate x:Name="ListBoxItemTemplate">
-                <Border Padding="0,10,0,8" BorderThickness="0,0,0,2" BorderBrush="#01636A">
+                <Border Padding="0,10,0,8" BorderThickness="0,0,0,2" BorderBrush="#01636A" Tap="listSearchResult_OnItemTap">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
@@ -164,14 +153,7 @@
                                 <TextBlock Text="{Binding ordinal}" Foreground="{StaticResource PhoneBackgroundBrush}" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold" VerticalAlignment="Center"/>
                             </Grid>
                         </Border>
-                        <!--<TextBlock  Text="{Binding ordinal}" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="16" Margin="0,13,0,0">
-                            <TextBlock.RenderTransformOrigin>
-                                <Point X="0.5" Y="0.5"/>                            
-                            </TextBlock.RenderTransformOrigin>
-                            <TextBlock.RenderTransform>
-                                <RotateTransform Angle="-90"></RotateTransform>
-                            </TextBlock.RenderTransform>
-                        </TextBlock>-->
+                       
                         <Grid Grid.Column="1">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
@@ -232,14 +214,14 @@
                     <telerikPrimitives:RadDataBoundListBox x:Name="listSearchResult" ItemsSource="{Binding listResultPlace}" ItemTemplate="{StaticResource ListBoxItemTemplate}" Margin="0,167,0,53" EmptyContent="">
                        
                
-                        <telerikPrimitives:RadDataBoundListBox.ItemAddedAnimation>
+                        <!--<telerikPrimitives:RadDataBoundListBox.ItemAddedAnimation>
                             <telerikCore:RadFadeAnimation StartOpacity="0" InitialDelay="0:0:0.3" 
                                   EndOpacity="1" Duration="0:0:0.9">
                                 <telerikCore:RadFadeAnimation.Easing>
                                     <CubicEase EasingMode="EaseOut"/>
                                 </telerikCore:RadFadeAnimation.Easing>
                             </telerikCore:RadFadeAnimation>
-                        </telerikPrimitives:RadDataBoundListBox.ItemAddedAnimation>
+                        </telerikPrimitives:RadDataBoundListBox.ItemAddedAnimation>-->
                         
                     </telerikPrimitives:RadDataBoundListBox>
                     <telerikPrimitives:RadBusyIndicator VerticalAlignment="Bottom" Background="Transparent" x:Name="busyIndicator1" AnimationStyle="AnimationStyle7">

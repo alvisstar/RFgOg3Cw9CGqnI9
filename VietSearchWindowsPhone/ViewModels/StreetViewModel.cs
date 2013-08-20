@@ -14,7 +14,7 @@ namespace VietSearchWindowsPhone.ViewModels
 {
     public class StreetViewModel
     {
-        string _streetName;
+        string _streetName = "";
 
         public string streetName
         {
@@ -24,18 +24,18 @@ namespace VietSearchWindowsPhone.ViewModels
                 if (value != _streetName)
                 {
                     _streetName = value;
-                    NotifyChanged("streetName");
+                    //NotifyChanged("streetName");
                 }
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void NotifyChanged(string propertyName)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
+        //public event PropertyChangedEventHandler PropertyChanged;
+        //public void NotifyChanged(string propertyName)
+        //{
+        //    if (PropertyChanged != null)
+        //    {
+        //        PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        //    }
+        //}
     }
 }
