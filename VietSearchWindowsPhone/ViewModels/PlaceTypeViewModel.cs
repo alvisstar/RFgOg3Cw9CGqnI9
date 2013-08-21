@@ -13,14 +13,14 @@ namespace VietSearchWindowsPhone.ViewModels
 {
     public class PlaceTypeViewModel
     {
-        string _placeTypeId ="";
+        string _placeTypeId;
 
         public string placeTypeId
         {
             get { return _placeTypeId; }
             set { _placeTypeId = value; }
         }
-        string _placeTypeName ="";
+        string _placeTypeName;
 
         public string placeTypeName
         {

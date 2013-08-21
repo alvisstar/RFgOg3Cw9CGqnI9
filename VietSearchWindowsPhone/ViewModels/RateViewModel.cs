@@ -11,12 +11,21 @@ using System.Windows.Shapes;
 
 namespace VietSearchWindowsPhone.ViewModels
 {
-    public class CommentViewModel
+    public class RateViewModel
     {
-        public CommentViewModel()
+
+
+        public RateViewModel()
         {
-            account = new AccountViewModel();
             place = new PlaceViewModel();
+            account = new AccountViewModel();
+        }
+        string _placeId;
+
+        public string placeId
+        {
+            get { return _placeId; }
+            set { _placeId = value; }
         }
         string _accountId;
 
@@ -25,21 +34,12 @@ namespace VietSearchWindowsPhone.ViewModels
             get { return _accountId; }
             set { _accountId = value; }
         }
+        double _mark;
 
-        AccountViewModel _account ;
-
-        public AccountViewModel account
+        public double mark
         {
-            get { return _account; }
-            set { _account = value; }
-        }
-
-        string _placeId;
-
-        public string placeId
-        {
-            get { return _placeId; }
-            set { _placeId = value; }
+            get { return _mark; }
+            set { _mark = value; }
         }
 
         PlaceViewModel _place;
@@ -49,22 +49,14 @@ namespace VietSearchWindowsPhone.ViewModels
             get { return _place; }
             set { _place = value; }
         }
+        AccountViewModel _account;
 
-        DateTime _createDate;
-
-        public DateTime createDate
+        public AccountViewModel account
         {
-            get { return _createDate; }
-            set { _createDate = value; }
+            get { return _account; }
+            set { _account = value; }
         }
-        
-        string _commentContent = "";
 
-        public string commentContent
-        {
-            get { return _commentContent; }
-            set { _commentContent = value; }
-        }
         bool _isLock;
 
         public bool isLock
@@ -72,5 +64,7 @@ namespace VietSearchWindowsPhone.ViewModels
             get { return _isLock; }
             set { _isLock = value; }
         }
+
+        
     }
 }

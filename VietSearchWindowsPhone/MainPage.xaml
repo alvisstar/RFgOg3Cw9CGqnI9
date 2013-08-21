@@ -9,9 +9,9 @@
     xmlns:telerikPrimitives="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Primitives"
     xmlns:telerikCore="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Core" xmlns:telerikInput="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Input" xmlns:controlsPrimitives="clr-namespace:Microsoft.Phone.Controls.Primitives;assembly=Microsoft.Phone.Controls" 
     x:Class="VietSearchWindowsPhone.MainPage"    
-    mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="696"
+    mc:Ignorable="d" 
     SupportedOrientations="Portrait"  Orientation="Portrait"
-    shell:SystemTray.IsVisible="True">
+    shell:SystemTray.IsVisible="True" d:DesignHeight="696" d:DesignWidth="480">
 
     
 	<phone:PhoneApplicationPage.Resources>
@@ -183,7 +183,7 @@
                             <TextBlock Text="{Binding placeName}" FontSize="16" FontWeight="Bold" Grid.Row="0" TextWrapping="Wrap" />                
                             <StackPanel Orientation="Horizontal" Grid.Row="1">
                                 <Image Width="24" Height="24" Source="Icon/star-icon.png" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                <TextBlock Text="{Binding rate}" FontSize="15" VerticalAlignment="Center" FontWeight="SemiBold"  Margin="8,0,8,0" Foreground="#0795B9"/>
+                                <TextBlock Text="{Binding rating}" FontSize="15" VerticalAlignment="Center" FontWeight="SemiBold"  Margin="8,0,8,0" Foreground="#0795B9"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Grid.Row="2">
                                 <TextBlock Text="Loại Dịch Vụ: " FontSize="17" FontWeight="Bold" Foreground="{StaticResource PhoneSubtleBrush}"/>
@@ -224,7 +224,7 @@
                         </telerikPrimitives:RadDataBoundListBox.ItemAddedAnimation>-->
                         
                     </telerikPrimitives:RadDataBoundListBox>
-                    <telerikPrimitives:RadBusyIndicator VerticalAlignment="Bottom" Background="Transparent" x:Name="busyIndicator1" AnimationStyle="AnimationStyle7">
+                    <telerikPrimitives:RadBusyIndicator VerticalAlignment="Bottom" Background="Transparent" x:Name="loadMoreBusyIndicator" AnimationStyle="AnimationStyle7">
                     </telerikPrimitives:RadBusyIndicator>
                     <telerikInput:RadAutoCompleteBox Watermark="Nhập Từ Khóa Tìm Kiếm..." ActionButtonVisibility="Visible"  BorderBrush="#FF216DB4" AutoCompletePopupDisplayMode="BelowTextBox" FilterDelay="0:0:0.350" Height="84"  HorizontalAlignment="Left"  x:Name="txtSearch"  VerticalAlignment="Top" Width="457"  TextChanged="AutoComplete" Margin="0,-22,0,0" ActionButtonTap="Search" SelectionForeground="Blue" Background="Transparent"  GotFocus="txtSearch_GotFocus" SelectionBackground="White" Foreground="White"  CaretBrush="{StaticResource PhoneTextBoxBrush}" SuggestionSelected="txtSearch_SuggestionSelected">
                         <telerikInput:RadAutoCompleteBox.SuggestionItemTemplate>
@@ -258,7 +258,7 @@
                         
                         
                     </telerikInput:RadAutoCompleteBox>
-                    <telerikPrimitives:RadBusyIndicator Background="Transparent" x:Name="busyIndicator" AnimationStyle="AnimationStyle9">
+                    <telerikPrimitives:RadBusyIndicator Background="Transparent" x:Name="searchBusyIndicator" AnimationStyle="AnimationStyle9">
                         
                     </telerikPrimitives:RadBusyIndicator>
                 </Grid>

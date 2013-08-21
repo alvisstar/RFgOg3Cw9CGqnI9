@@ -119,6 +119,7 @@
     <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\HandleInputController.cs" />
     <Compile Include="Controllers\PlaceController.cs" />
+    <Compile Include="Controllers\RatingController.cs" />
     <Compile Include="Controllers\ServiceController.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AutoCompleteProvider\AutoCompleteProvider.cs" />
@@ -196,6 +197,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
+    <None Include="Properties\PublishProfiles\Profile1.pubxml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\VietSearch.Utility\VietSearch.Utility.csproj">
@@ -217,7 +219,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>False</AutoAssignPort>
           <DevelopmentServerPort>21222</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

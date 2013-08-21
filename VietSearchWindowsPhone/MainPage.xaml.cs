@@ -44,7 +44,7 @@ namespace VietSearchWindowsPhone
             searchResultObjectViewModel = new SearchResultObjectViewModel();
             Refresh();
             this.DataContext = searchResultObjectViewModel;
-            long a = DeviceStatus.ApplicationCurrentMemoryUsage / (1024 * 1024);
+           
            // string uri = App.HANDLEINPUT_URI + "/Get";
            // HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(uri);
             //request.BeginGetResponse(new AsyncCallback(GetPlaceCallBack), request);
@@ -112,8 +112,8 @@ namespace VietSearchWindowsPhone
                     tblNumResult.Text = ("Tìm Thấy " + searchResultObjectViewModel.numResultPlace + " Kết Quả!").ToUpper();
                    
                     borderNumResult.Visibility = Visibility.Visible;
-                    this.busyIndicator.IsRunning = false;
-                    this.busyIndicator1.IsRunning = false;
+                    this.searchBusyIndicator.IsRunning = false;
+                    this.loadMoreBusyIndicator.IsRunning = false;
                     index++;
                 }
                 catch
@@ -144,13 +144,26 @@ namespace VietSearchWindowsPhone
             {
                 try
                 {
+                    bool isHasNull = false;
                     HttpWebRequest httpRequest = (HttpWebRequest)asynchronousResult.AsyncState;
                     WebResponse response = httpRequest.EndGetResponse(asynchronousResult);
                     Stream stream = response.GetResponseStream();
 
                     DataContractJsonSerializer jsonSerializer = new DataContractJsonSerializer(typeof(List<string>));
-                    List<string> listString = (List<string>)jsonSerializer.ReadObject(stream);
-                    txtSearch.SuggestionsSource = listString;
+                    List<string> listString = new List<string>(); 
+                    listString   = (List<string>)jsonSerializer.ReadObject(stream);
+                    for (int i = 0; i < listString.Count; i++)
+                    {
+                        if (listString[i] == null)
+                        {
+                            isHasNull = true;
+                            break;
+                        }
+
+                    }
+                    if(isHasNull == false)
+                        txtSearch.SuggestionsSource = listString;
+                   
                     response.Close();
                 }
                 catch
@@ -171,11 +184,19 @@ namespace VietSearchWindowsPhone
 
         private void Search(object sender, EventArgs e)
         {
-            Refresh();
-            this.busyIndicator.IsRunning = true;
-            string uri = App.SERVICE_URI + "/Get?keyword=" + txtSearch.Text + "&&cityId=CI100000049&&index=" + index;
-            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(uri);
-            request.BeginGetResponse(new AsyncCallback(GetPlaceCallBack), request);
+            if (txtSearch.Text.CompareTo("") != 0)
+            {
+                Refresh();
+                listSearchResult.Focus();
+                this.searchBusyIndicator.IsRunning = true;
+                string uri = App.SERVICE_URI + "/Get?keyword=" + txtSearch.Text + "&&cityId=CI100000049&&index=" + index;
+                HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(uri);
+                request.BeginGetResponse(new AsyncCallback(GetPlaceCallBack), request);
+            }
+            else
+            {
+                MessageBox.Show("Xin nhập từ khóa tìm kiếm!");
+            }
         }
 
         private void txtSearch_GotFocus(object sender, RoutedEventArgs e)
@@ -222,7 +243,7 @@ namespace VietSearchWindowsPhone
         {
             if (index != 0 && searchResultObjectViewModel.listResultPlace.Count < searchResultObjectViewModel.numResultPlace)
             {
-                this.busyIndicator1.IsRunning = true;
+                this.loadMoreBusyIndicator.IsRunning = true;
                 string uri = App.SERVICE_URI + "/Get?keyword=" + txtSearch.Text + "&&cityId=CI100000049&&index=" + index;
                 HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(uri);
                 request.BeginGetResponse(new AsyncCallback(GetPlaceCallBack), request);
@@ -232,12 +253,12 @@ namespace VietSearchWindowsPhone
 
         private void txtSearch_SuggestionSelected(object sender, Telerik.Windows.Controls.SuggestionSelectedEventArgs e)
         {
-            try
-            {
-            }
-            catch
-            {
-            }
+            string selectedSuggestion = e.SelectedSuggestion as string;
+            Refresh();          
+            this.searchBusyIndicator.IsRunning = true;
+            string uri = App.SERVICE_URI + "/Get?keyword=" + selectedSuggestion + "&&cityId=CI100000049&&index=" + index;
+            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(uri);
+            request.BeginGetResponse(new AsyncCallback(GetPlaceCallBack), request);
         }
 
         private void Grid_DoubleTap(object sender, System.Windows.Input.GestureEventArgs e)
@@ -256,12 +277,18 @@ namespace VietSearchWindowsPhone
             
             //applicationBar = new ApplicationBar();
             homeSearchIconBar = new ApplicationBarIconButton();
-            homeSearchIconBar.IconUri = new Uri("/Toolkit.Content/ApplicationBar.Search.png", UriKind.RelativeOrAbsolute);
+            homeSearchIconBar.IconUri = new Uri("Toolkit.Content/ApplicationBar.Search.png", UriKind.RelativeOrAbsolute);
             homeSearchIconBar.Text = "Tìm Kiếm";
+            homeSearchIconBar.Click+=homeSearchIconBar_Click;
             ApplicationBar.Buttons.Add(homeSearchIconBar);
             ApplicationBar.IsVisible = true;
 
            
+        }
+
+        private void homeSearchIconBar_Click(object sender, EventArgs e)
+        {
+            txtSearch.Focus();
         }
 
         private void listSearchResult_OnItemTap(object sender, System.Windows.Input.GestureEventArgs e)

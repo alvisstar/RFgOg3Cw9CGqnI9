@@ -13,7 +13,7 @@ namespace VietSearchWindowsPhone.ViewModels
 {
     public class CityViewModel
     {
-        string _cityName = "";
+        string _cityName;
 
         public string cityName 
         {

@@ -9,6 +9,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.ComponentModel;
+using System.Collections.Generic;
 
 namespace VietSearchWindowsPhone.ViewModels
 {
@@ -21,8 +22,9 @@ namespace VietSearchWindowsPhone.ViewModels
             street = new StreetViewModel();
             district = new DistrictViewModel();
             city = new CityViewModel();
+            listComment = new List<CommentViewModel>();
         }
-        string _placeId = "";
+        string _placeId;
 
         public string placeId
         {
@@ -32,12 +34,12 @@ namespace VietSearchWindowsPhone.ViewModels
                 if (value != _placeId)
                 {
                     _placeId = value;
-                  //  NotifyChanged("placeId");
+                    NotifyChanged("placeId");
                 }
             }
         }
 
-        string _placeName = "";
+        string _placeName;
 
         public string placeName
         {
@@ -47,21 +49,36 @@ namespace VietSearchWindowsPhone.ViewModels
                 if (value != _placeName)
                 {
                     _placeName = value;
-                   // NotifyChanged("placeName");
+                    NotifyChanged("placeName");
                 }
             }
         }
 
-        double _rate =0;
+        string _phone;
 
-        public double rate
+        public string phone
         {
-            get { return _rate; }
-            set { _rate = value; }
+            get { return _phone; }
+            set { _phone = value; }
         }
 
+        double _rating;
 
-        int _ordinal =1;
+        public double rating
+        {
+            get { return _rating; }
+            set { _rating = value; }
+        }
+
+        int _numberRating;
+
+        public int numberRating
+        {
+            get { return _numberRating; }
+            set { _numberRating = value; }
+        }
+
+        int _ordinal;
 
         public int ordinal
         {
@@ -71,12 +88,12 @@ namespace VietSearchWindowsPhone.ViewModels
                 if (value != _ordinal)
                 {
                     _ordinal = value;
-                    //NotifyChanged("ordinal");
+                    NotifyChanged("ordinal");
                 }
             }
         }
 
-        string _homeNumber = "";
+        string _homeNumber;
 
         public string homeNumber
         {
@@ -86,7 +103,7 @@ namespace VietSearchWindowsPhone.ViewModels
                 if (value != _homeNumber)
                 {
                     _homeNumber = value;
-                    //NotifyChanged("homeNumber");
+                    NotifyChanged("homeNumber");
                 }
             }
         }
@@ -119,7 +136,7 @@ namespace VietSearchWindowsPhone.ViewModels
             set { _city = value; }
         }
 
-        string _fullAddress = ""; 
+        string _fullAddress; 
 
         public string fullAddress
         {
@@ -129,19 +146,19 @@ namespace VietSearchWindowsPhone.ViewModels
                 if (value != _fullAddress)
                 {
                     _fullAddress = value;
-                   // NotifyChanged("fullAddress");
+                    NotifyChanged("fullAddress");
                 }
             }
         }
 
-        double _longitude =0;
+        double _longitude;
 
         public double longitude
         {
             get { return _longitude; }
             set { _longitude = value; }
         }
-        double _latitude =0;
+        double _latitude;
 
         public double latitude
         {
@@ -149,15 +166,21 @@ namespace VietSearchWindowsPhone.ViewModels
             set { _latitude = value; }
         }
 
-        
+        List<CommentViewModel> _listComment;
 
-        //public event PropertyChangedEventHandler PropertyChanged;
-        //public void NotifyChanged(string propertyName)
-        //{
-        //    if (PropertyChanged != null)
-        //    {
-        //        PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-        //    }
-        //}
+        public List<CommentViewModel> listComment
+        {
+            get { return _listComment; }
+            set { _listComment = value; }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void NotifyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
     }
 }

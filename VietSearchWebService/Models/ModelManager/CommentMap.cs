@@ -12,7 +12,7 @@ namespace VietSearchWebService.Models.ModelManager
     {
         public CommentMap()
         {
-            this.HasKey(t => new { t.accountId, t.placeId });
+            this.HasKey(t => new { t.accountId, t.placeId,t.createDate });
           //  this.HasKey(t => t.accountId);
             //this.HasKey(t => t.ordinal  );
 
@@ -28,8 +28,9 @@ namespace VietSearchWebService.Models.ModelManager
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
             this.HasRequired(m => m.account).WithMany(m => m.listComment).HasForeignKey(p => p.accountId);
 
-            this.Property(t => t.ordinal)
-                .HasColumnName("Ordinal");
+            this.Property(t => t.createDate)
+                .HasColumnName("CreateDate")
+                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None); ;
 
             this.Property(t => t.commentContent)
                 .HasColumnName("CommentContent");

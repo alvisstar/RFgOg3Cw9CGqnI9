@@ -78,5 +78,13 @@ namespace VietSearchWebService.Models.ModelObject
             get { return _listRecentlySearch; }
             set { _listRecentlySearch = value; }
         }
+
+        private string _accountPicture;
+
+        public string accountPicture
+        {
+            get { return _accountPicture; }
+            set { _accountPicture = value; }
+        }
     }
 }

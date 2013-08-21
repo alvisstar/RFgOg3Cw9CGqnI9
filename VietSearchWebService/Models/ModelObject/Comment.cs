@@ -45,12 +45,12 @@ namespace VietSearchWebService.Models.ModelObject
             set { _place = value; }
         }
 
-        int _ordinal;
+        DateTime _createDate;
 
-        public int ordinal
+        public DateTime createDate
         {
-            get { return _ordinal; }
-            set { _ordinal = value; }
+            get { return _createDate; }
+            set { _createDate = value; }
         }
         string _commentContent;
 

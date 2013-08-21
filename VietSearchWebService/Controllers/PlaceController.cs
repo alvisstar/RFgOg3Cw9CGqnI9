@@ -25,7 +25,7 @@ namespace VietSearchWebService.Controllers
                 //.Select(p => new Place { placeId = p.placeId,street = p.street, district = p.district,city= p.city,placeType= p.placeType,listFavourite = p.listFavourite,listComment = p.listComment,listMenu = p.listMenu }).ToList();
             //placeResult = (Place)temp;
             placeResult= temp
-                .Select(p => new Place { placeId = p.place.placeId,placeName = p.place.placeName,longitude = p.place.longitude,latitude=p.place.latitude, 
+                .Select(p => new Place { placeId = p.place.placeId,placeName = p.place.placeName,longitude = p.place.longitude,latitude=p.place.latitude, rating = p.place.rating,numberRating = p.place.numberRating,homeNumber=p.place.homeNumber,phone=p.place.phone,
                     street = p.street, district = p.district, city = p.city, placeType = p.placeType, listFavourite = p.listFavourite, listComment = p.listComment, listMenu = p.listMenu }).ToList().FirstOrDefault();
             return placeResult;
 

@@ -13,26 +13,34 @@ namespace VietSearchWindowsPhone.ViewModels
 {
     public class AccountViewModel
     {
-        string _accountId ="";
+        string _accountId;
 
         public string accountId
         {
             get { return _accountId; }
             set { _accountId = value; }
         }
-        string _accountName ="";
+        string _accountName;
 
         public string accountName
         {
             get { return _accountName; }
             set { _accountName = value; }
         }
-        bool _isLock =false;
+        bool _isLock;
 
         public bool isLock
         {
             get { return _isLock; }
             set { _isLock = value; }
+        }
+
+        string _accountPicture;
+
+        public string accountPicture
+        {
+            get { return _accountPicture; }
+            set { _accountPicture = value; }
         }
     }
 }

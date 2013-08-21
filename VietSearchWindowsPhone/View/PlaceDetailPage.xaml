@@ -14,7 +14,8 @@
     x:Class="VietSearchWindowsPhone.View.PlaceDetailPage"    
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="696"
     SupportedOrientations="Portrait"  Orientation="Portrait"
-    shell:SystemTray.IsVisible="True">
+    shell:SystemTray.IsVisible="True"
+    xmlns:c="clr-namespace:VietSearchWindowsPhone">
 
 
     <phone:PhoneApplicationPage.Resources>
@@ -77,6 +78,52 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <DataTemplate x:Key="listCommentItemTemplate"> 
+            <StackPanel Orientation="Vertical">
+                <Border Margin="0,12,0,0" Background="#FF454040">
+                    <Grid  Margin="{StaticResource PhoneMargin}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="22"/>
+                            <ColumnDefinition Width="38"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+							<RowDefinition/>
+							<RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Polygon Margin="0,-24,0,0"
+												HorizontalAlignment="Left"
+												VerticalAlignment="Top"
+												Width="14"
+												Height="17"
+												Fill="#CACACA">
+                            <Polygon.Points>
+                                <Point X="0" Y="0"></Point>
+                                <Point X="11" Y="14"></Point>
+                                <Point X="0" Y="14"></Point>
+                            </Polygon.Points>
+
+                        </Polygon>
+                        <Image Grid.ColumnSpan="2" Width="48" Height="48" Source="{Binding account.accountPicture}"></Image>
+                        <StackPanel Grid.ColumnSpan="2" VerticalAlignment="Top" Grid.Column="2" Margin="{StaticResource PhoneHorizontalMargin}">
+                            <TextBlock
+											VerticalAlignment="Bottom"
+											FontFamily="Segoe WP SemiLight"
+											Grid.Column="1"
+											Grid.Row="1"
+											Text="{Binding account.accountName}" Foreground="#FF0F36D8"></TextBlock>
+                        </StackPanel>
+						<TextBlock Foreground="#FFF7F7F7"  Grid.Row="2" Grid.Column="2" Text="{Binding commentContent}" TextWrapping="Wrap" Margin="12,0,0,0"></TextBlock>
+						<TextBlock Grid.Column="3" Grid.Row="0" VerticalAlignment="Bottom" HorizontalAlignment="Right" Text="{Binding createDate}" Foreground="#FFC6D01A"></TextBlock>
+                    </Grid>
+
+
+                </Border>
+            </StackPanel>
+        </DataTemplate>
+        
     </phone:PhoneApplicationPage.Resources>
     
         <!--Sample code showing usage of ApplicationBar-->
@@ -138,67 +185,177 @@
         <!--Pivot Control-->
         <controls:Pivot Title="Việt Search" Style="{StaticResource PivotStyle1}">
             <!--Pivot item one-->
+            
+            <controls:PivotItem x:Name="infoPivot" Header="Thông tin">
+
+                    <Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition/>
+						<RowDefinition/>
+						<RowDefinition/>
+					</Grid.RowDefinitions>
+					<StackPanel Orientation="Vertical">
+                        
+						<TextBlock x:Name="txtPlaceNameInfo" FontSize="24"></TextBlock>
+						<StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+						<TextBlock Text="Điện Thoại: "></TextBlock>
+                        <TextBlock x:Name="txtPhoneInfo" FontWeight="SemiBold"  Foreground="{StaticResource PhoneSubtleBrush}" Margin="20,0,0,0"></TextBlock>
+						</StackPanel>
+						<StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+						<TextBlock Text="Loại Dịch Vụ: "></TextBlock>
+						<TextBlock x:Name="txtPlaceTypeInfo" FontWeight="SemiBold"  Foreground="{StaticResource PhoneSubtleBrush}" Margin="20,0,0,0"></TextBlock>
+						</StackPanel>
+					</StackPanel>
+					<Grid Grid.Row="1">
+						<StackPanel>
+						<TextBlock Text="CHỈ ĐƯỜNG" FontSize="24" Margin="0,0,0,10"></TextBlock>
+						<StackPanel Orientation="Horizontal">
+							<TextBlock x:Name="txtHomeNumberInfo" FontSize="18" Foreground="#FFE4E423" Margin="0,0,5,0"></TextBlock>
+                                <TextBlock x:Name="txtStreetInfo" FontSize="18" Foreground="#FFE4E423" Margin="0,0,0,0"></TextBlock>
+						</StackPanel>
+                            <TextBlock x:Name="txtDistrictInfo" FontSize="18" Foreground="#FFE4E423"></TextBlock>
+                            <TextBlock x:Name="txtCityInfo" FontSize="18" Foreground="#FFE4E423"></TextBlock>
+						
+						</StackPanel>
+					</Grid>
+				</Grid>
+               
+            </controls:PivotItem>
             <controls:PivotItem Header="Bản Đồ">
                 <!--Double line list with text wrapping-->
                 <Grid x:Name="SearchLayout">
-                    
+
                 </Grid>
             </controls:PivotItem>
-
             <!--Pivot item two-->
-            <controls:PivotItem Header="Thông Tin">
+            <controls:PivotItem Header="Đánh giá và Bình luận">
                 <!--Triple line list no text wrapping-->
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto">
-                            
+                       
+						
+						<RowDefinition Height="Auto">
+                        </RowDefinition>
+						<RowDefinition Height="Auto">
                         </RowDefinition>
                         <RowDefinition Height="Auto">
-
-                        </RowDefinition>
-                        <RowDefinition Height="Auto">
-
                         </RowDefinition>
                     </Grid.RowDefinitions>
                       
-                    <StackPanel Grid.Row="0" Orientation="Vertical"></StackPanel>
-                    <StackPanel  Orientation="Horizontal">
-                        <TextBlock Text="Tên Địa Điểm:">                        
+                    
+                    
+					
+					
+                        <TextBlock Grid.Row="0" Text="ĐÁNH GIÁ ĐỊA ĐIỂM" Margin="0,6,0,-6" FontSize="20">
                         </TextBlock>
-                        <TextBlock Text="Tên Địa Điểm">
-                        </TextBlock>
+                     
+                   
+					<StackPanel Grid.Row="1"  Orientation="Horizontal">
+                       <telerikInput:RadRating x:Name="ratingPlace" Tap="RatingPlace" ItemShapeWidth="36" VerticalAlignment="Center"   Margin="0,15,0,0" FontSize="13.333" ItemShapeHeight="36">
+                       	    <telerikInput:RadRating.ItemShapeHighlightedStyle>
+                       	    	<Style TargetType="Path">
+                       	    		<Setter Property="Fill" Value="Blue" ></Setter>               	    	
+								</Style>                	    
+							</telerikInput:RadRating.ItemShapeHighlightedStyle>       
+					   </telerikInput:RadRating>
                     </StackPanel>
-                    <StackPanel Grid.Row="1"  Orientation="Horizontal">
-                        <TextBlock Text="Số Điện Thoại:">
-                        </TextBlock>
-                        <TextBlock Text="Số Điện Thoại">
-                        </TextBlock>
-                    </StackPanel>
-                    <Grid Grid.Row="2">
-                        <Grid.RowDefinitions>
+                    <Grid Grid.Row="2" >
+                        <Grid.Resources>
+                            <c:BoolToStringConverter x:Key="BoolToStringConverter" TrueValue="Ẩn bình luận" FalseValue="Hiển thị bình luận" />
+                        </Grid.Resources>
+                            <Grid.RowDefinitions>
                             <RowDefinition Height="Auto">
-
                             </RowDefinition>
-                            <RowDefinition Height="Auto">
-
+                            <RowDefinition>
                             </RowDefinition>
-                            <RowDefinition Height="Auto">
-
+                            <RowDefinition>
                             </RowDefinition>
                         </Grid.RowDefinitions>
-                        <TextBlock Grid.Row="0" Text="Bình Luận:">
-                        </TextBlock>
-                        <TextBox x:Name="txtComment" Grid.Row="1"></TextBox>
-                        <Button Grid.Row="2" Width="200" Height="70" Content="Bình Luận" Click="btnComment_Click"></Button>
+                        <StackPanel Orientation="Horizontal" Margin="0,20,0,0" >                  
+							<TextBlock Text="BÌNH LUẬN" FontSize="22" ></TextBlock>
+						</StackPanel>
+						<StackPanel Margin="{StaticResource PhoneVerticalMargin}" Grid.Row="1">
+							<telerikPrimitives:RadExpanderControl x:Name="commentExpanderControl" IsExpanded="True" AnimatedIndicatorContentTemplate="{x:Null}">
+								<telerikPrimitives:RadExpanderControl.Content>
+									<Border Margin="0,14,0,0" Background="#3D3D3D">
+										<Grid Margin="{StaticResource PhoneMargin}" >
+											<Grid.RowDefinitions>
+												<RowDefinition/>
+												<RowDefinition/>
+												<RowDefinition/>
+											</Grid.RowDefinitions>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition/>
+												<ColumnDefinition Width="Auto"/>
+											</Grid.ColumnDefinitions>
+											<Polygon Margin="0,-26,0,0"
+											VerticalAlignment="Top" HorizontalAlignment="Left"
+											Width="16" Height="14" Fill="#3D3D3D">
+												<Polygon.Points>
+													<Point X="0" Y="0"></Point>
+													<Point X="16" Y="14"></Point>
+													<Point X="0" Y="14"></Point>
+												</Polygon.Points>
+												
+											</Polygon>
+											<TextBlock Foreground="#FFFFFF"
+											Margin="0,0,0,12"
+											FontFamily="Segoe WP"
+											TextWrapping="Wrap"
+											Grid.Row="0"
+											Grid.ColumnSpan="2">
+												<TextBlock.Inlines>
+													<Run Foreground="#C8FF00"> Xin mời tham gia đánh giá địa điểm.  </Run>
+													
+													
+												</TextBlock.Inlines>
+												
+											</TextBlock>
+											<StackPanel VerticalAlignment="Bottom"
+											Grid.Row="1" Grid.Column="0" Orientation="Horizontal">
+												<Image></Image>
+												<TextBlock
+												Margin="{StaticResource PhoneHorizontalMargin}"
+												Text="{Binding ElementName=commentExpanderControl,Path=IsExpanded,Converter={StaticResource BoolToStringConverter}}"
+												Foreground="#C8FF00"></TextBlock>
+											</StackPanel>			
+										</Grid>
+									</Border>
+								</telerikPrimitives:RadExpanderControl.Content>
+								<telerikPrimitives:RadExpanderControl.ExpandableContent>
+                                    <telerikPrimitives:RadDataBoundListBox  MaxHeight="310" x:Name="listCommentContent" ItemsSource="{Binding listComment}" ItemTemplate="{StaticResource listCommentItemTemplate}" EmptyContent=" Hãy là người đầu tiên bình luận!" IsSynchronizedWithCurrentItem="False">
+                                        
+                                    </telerikPrimitives:RadDataBoundListBox>
+								</telerikPrimitives:RadExpanderControl.ExpandableContent>
+							</telerikPrimitives:RadExpanderControl>
+                            
+                          
+
+                            <telerikPrimitives:RadTextBox x:Name="txtComment" Grid.Row="3" Watermark="Nhập bình luận của bạn..." ActionButtonVisibility="Visible"  BorderBrush="#FF216DB4" Height="84"  HorizontalAlignment="Left"   VerticalAlignment="Top" Width="457" Margin="0,-12,0,0" ActionButtonTap="txtComment_ActionButtonTap" KeyDown="txtComment_KeyDown" SelectionForeground="Blue" Background="Transparent"  GotFocus="txtComment_GotFocus" SelectionBackground="White" Foreground="White"  CaretBrush="{StaticResource PhoneTextBoxBrush}">
+                                <telerikPrimitives:RadTextBox.ActionButtonStyle>
+                                    <Style TargetType="telerikPrimitives:RadImageButton">
+                                        <Setter Property="RestStateImageSource"  Value="/Toolkit.Content/ApplicationBar.SentText.png"/>
+                                        <Setter Property="Margin"  Value="0,-30,0,0"/>
+                                        <Setter Property="Height"  Value="82"/>
+                                        <Setter Property="ButtonShape" Value="Image"/>
+                                    </Style>
+                                </telerikPrimitives:RadTextBox.ActionButtonStyle>
+
+                            </telerikPrimitives:RadTextBox>
+						</StackPanel>
+                        
                     </Grid>
+                    
                 </Grid>
             </controls:PivotItem>
            
         </controls:Pivot>
+        <telerikPrimitives:RadBusyIndicator Background="Transparent" x:Name="actionBusyIndicator" AnimationStyle="AnimationStyle9">
+        </telerikPrimitives:RadBusyIndicator>
 
     </Grid>
     <phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar  IsVisible="True" IsMenuEnabled="True">
+        <shell:ApplicationBar  Mode="Minimized" IsVisible="True" IsMenuEnabled="True">
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
 </phone:PhoneApplicationPage>

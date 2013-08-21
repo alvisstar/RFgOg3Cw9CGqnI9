@@ -56,10 +56,10 @@ namespace VietSearchWebService.Models.SearchProvider
                     && r.placeTypeId.Contains(strPlaceTypeId)
                     && r.streetId.Contains(strStreetId)
                     && r.placeId.Contains(strPlaceId)
-                    &&r.isLock==false).OrderBy(m=>m.placeId).Skip(index*MAX_RESULT).Take(MAX_RESULT).Select(r => new {r.street,r.district,r.city, r.placeType, r.placeId, r.placeName,r.homeNumber,r.longitude,r.latitude }).ToList();
+                    &&r.isLock==false).OrderBy(m=>m.placeId).Skip(index*MAX_RESULT).Take(MAX_RESULT).Select(r => new {r.street,r.district,r.city, r.placeType, r.placeId, r.placeName,r.homeNumber,r.longitude,r.latitude,r.rating,r.numberRating }).ToList();
                 for (int j = 0; j < temp.Count; j++)
                 {
-                    listTemp.Add(new Place { street = temp[j].street, district = temp[j].district,city = temp[j].city, placeType = temp[j].placeType, placeId = temp[j].placeId, placeName = temp[j].placeName, homeNumber = temp[j].homeNumber, longitude = temp[j].longitude, latitude = temp[j].latitude });
+                    listTemp.Add(new Place { street = temp[j].street, district = temp[j].district,city = temp[j].city, placeType = temp[j].placeType, placeId = temp[j].placeId, placeName = temp[j].placeName, homeNumber = temp[j].homeNumber, longitude = temp[j].longitude, latitude = temp[j].latitude,rating = temp[j].rating,numberRating = temp[j].numberRating });
                 }
                 searchResultObject.numResultPlace += count;
                 searchResultObject.listResultPlace.AddRange(listTemp);
