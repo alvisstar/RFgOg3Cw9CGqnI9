@@ -18,6 +18,7 @@ namespace VietSearchWindowsPhone
 {
     public partial class App : Application
     {
+
         private static MainViewModel viewModel = null;
         
 
@@ -26,11 +27,14 @@ namespace VietSearchWindowsPhone
         /// </summary>
         /// <returns>The MainViewModel object.</returns>
         /// 
-        public const string SERVICE_URI = "http://localhost:21222/api/Service";
-        public const string HANDLEINPUT_URI = "http://localhost:21222/api/HandleInput";
-        public const string PLACE_URI = "http://localhost:21222/api/Place";
-        public const string ACCOUNT_URI = "http://localhost:21222/api/Account";
-        public const string COMMENT_URI = "http://localhost:21222/api/Comment";
+        //public const string strHost = "http://localhost:21222/api";
+        public const string strHost = "http://192.168.202.78:8081/api";
+        public const string SERVICE_URI = strHost + "/Service";
+        public const string HANDLEINPUT_URI = strHost +"/HandleInput";
+        public const string PLACE_URI = strHost +"/Place";
+        public const string ACCOUNT_URI = strHost +"/Account";
+        public const string COMMENT_URI = strHost +"/Comment";
+        public const string RATING_URI = strHost +"/Rating";
 
 
         private static PlaceViewModel _currentPlace = null;
@@ -181,4 +185,5 @@ namespace VietSearchWindowsPhone
 
         #endregion
     }
+   
 }

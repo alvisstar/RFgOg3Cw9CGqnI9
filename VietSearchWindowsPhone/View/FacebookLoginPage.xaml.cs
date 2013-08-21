@@ -19,6 +19,7 @@ using VietSearchWindowsPhone.ViewModels;
 using System.Runtime.Serialization.Json;
 using System.IO;
 using System.Text;
+using System.Windows.Media.Imaging;
 
 namespace VietSearchWindowsPhone.View
 {
@@ -74,18 +75,37 @@ namespace VietSearchWindowsPhone.View
                 
                 accountViewModel.accountId = FacebookClientHelper.Instance.userId;
                 accountViewModel.accountName = (string)result["name"];
+                string username = (string)result["username"];
                 accountViewModel.isLock = false;
 
-                CheckExistAccount(accountViewModel.accountId);
-
-                
-
-
-
+                string uri = "http://graph.facebook.com/" + username + "/picture?type=large";
+                HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(uri);
+                request.BeginGetResponse(new AsyncCallback(GetAvatarCallBack), request);
                 
             };
 
             fb.GetAsync("me");
+        }
+
+        private void GetAvatarCallBack(IAsyncResult asynchronousResult)
+        {
+            
+            Deployment.Current.Dispatcher.BeginInvoke(() =>
+            {
+                try
+                {
+                    HttpWebRequest httpRequest = (HttpWebRequest)asynchronousResult.AsyncState;
+                    WebResponse response = httpRequest.EndGetResponse(asynchronousResult);
+                    accountViewModel.accountPicture = response.ResponseUri.ToString();
+                    
+                    response.Close();
+                }
+                catch
+                {
+                }
+               
+                CheckExistAccount(accountViewModel.accountId);
+            });
         }
 
         public void CheckExistAccount(string accountId)
@@ -116,14 +136,17 @@ namespace VietSearchWindowsPhone.View
                         var json = sr.ReadToEnd();
                         var webClient = new WebClient();
                         webClient.Headers[HttpRequestHeader.ContentType] = "application/json";
-                        webClient.UploadStringCompleted += this.sendPostCompleted;
+                        webClient.UploadStringCompleted += this.InsertAccountCallBack;
                         webClient.UploadStringAsync(new Uri(App.ACCOUNT_URI), "POST", json);
-                        
+
                     }
-                    var rootFrame = Application.Current.RootVisual as PhoneApplicationFrame;
-                    if (rootFrame != null)
-                        rootFrame.GoBack();
-                    response.Close();
+                    else
+                    {
+                        var rootFrame = Application.Current.RootVisual as PhoneApplicationFrame;
+                        if (rootFrame != null)
+                            rootFrame.GoBack();
+                        response.Close();
+                    }
                 }
                 catch
                 {
@@ -131,7 +154,7 @@ namespace VietSearchWindowsPhone.View
             });
         }
 
-        private void sendPostCompleted(object sender, UploadStringCompletedEventArgs e)
+        private void InsertAccountCallBack(object sender, UploadStringCompletedEventArgs e)
         {
 
             var rootFrame = Application.Current.RootVisual as PhoneApplicationFrame;

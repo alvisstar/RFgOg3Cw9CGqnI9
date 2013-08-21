@@ -61,7 +61,10 @@ namespace VietSearchWebService.Models.ModelManager
 
             this.Property(t => t.website)
                .HasColumnName("Website");
-
+            this.Property(t => t.rating)
+               .HasColumnName("Rating");
+            this.Property(t => t.numberRating)
+               .HasColumnName("NumberRating");
 
             this.Property(t => t.isLock)
                 .HasColumnName("IsLock");

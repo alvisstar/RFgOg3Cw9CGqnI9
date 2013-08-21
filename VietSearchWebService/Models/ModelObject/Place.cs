@@ -206,5 +206,21 @@ namespace VietSearchWebService.Models.ModelObject
             get { return _listRecentlySearch; }
             set { _listRecentlySearch = value; }
         }
+
+
+        double _rating;
+
+        public double rating
+        {
+            get { return _rating; }
+            set { _rating = value; }
+        }
+        int _numberRating;
+
+        public int numberRating
+        {
+            get { return _numberRating; }
+            set { _numberRating = value; }
+        }
     }
 }

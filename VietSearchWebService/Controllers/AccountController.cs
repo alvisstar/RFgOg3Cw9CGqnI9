@@ -22,6 +22,8 @@ namespace VietSearchWebService.Controllers
         }
         public Account Get(string accountId)
         {
+           
+
             Account account = new Account();
             account  =vietSearchContext.accounts.Where(r => r.accountId == accountId && r.isLock == false).FirstOrDefault();
             return account;

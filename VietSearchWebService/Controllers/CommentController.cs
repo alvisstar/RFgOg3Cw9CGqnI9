@@ -19,37 +19,46 @@ namespace VietSearchWebService.Controllers
         {
             vietSearchContext = new VietSearchContext();
         }
-        public string Get(string json)
+        public List<Comment> Get (string placeId,string parameter)
         {
-            DataContractJsonSerializer dcjs = new DataContractJsonSerializer(typeof(Comment));
-            MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(json));
-            Comment value = (Comment)dcjs.ReadObject(ms);
+            List<Comment> listComment = new List<Comment>();
+            if (parameter.CompareTo("place") == 0)
+            {
+               
+                var temp = (from comment in vietSearchContext.comments where comment.placeId == placeId && comment.isLock == false select new { comment, comment.account }).ToList();
 
+                listComment = temp
+                    .Select(p => new Comment
+                    {
+                        placeId = p.comment.placeId,
+                        accountId = p.comment.accountId,
+                        commentContent = p.comment.commentContent,
+                        createDate = p.comment.createDate,
+                        account = p.account
+                    }).OrderByDescending(p=>p.createDate).ToList();
+               
+            }
+            return listComment;
+                            
+        }
+       
+        public HttpResponseMessage Post(Comment value)
+        {
 
             try
             {
-                vietSearchContext.Database.SqlQuerySmart<Comment>("sp_InsertComment", new
+                vietSearchContext.Database.ExecuteSqlCommandSmart("sp_InsertComment", new
                 {
                     AccountId = value.accountId,
                     PlaceId = value.placeId,
                     CommentContent = value.commentContent,
                     IsLock = value.isLock
-                }).FirstOrDefault();
+                });
             }
             catch
             {
             }
  
-
-            
-            return "";
-        }
-        public HttpResponseMessage Post(Comment value)
-        {
-
-
-            vietSearchContext.comments.Add(value);
-            vietSearchContext.SaveChanges();
             var response = Request.CreateResponse<Comment>(HttpStatusCode.Created, value);
             string uri = Url.Link("DefaultApi", new { accountId = value.accountId,placeId = value.placeId });
             response.Headers.Location = new Uri(uri);

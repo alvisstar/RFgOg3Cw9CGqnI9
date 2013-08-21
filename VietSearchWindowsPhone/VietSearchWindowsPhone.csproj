@@ -98,10 +98,12 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Tools\BoolToValueConverter.cs" />
     <Compile Include="Tools\KeyValuePairUtils.cs" />
     <Compile Include="Tools\UriToolKits.cs" />
     <Compile Include="ViewModels\AccountViewModel.cs" />
     <Compile Include="ViewModels\CommentViewModel.cs" />
+    <Compile Include="ViewModels\RateViewModel.cs" />
     <Compile Include="View\FacebookLoginPage.xaml.cs">
       <DependentUpon>FacebookLoginPage.xaml</DependentUpon>
     </Compile>
@@ -127,10 +129,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <DesignData Include="SampleData\MainViewModelSampleData.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </DesignData>
     <Page Include="View\FacebookLoginPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -154,7 +152,8 @@
     <Content Include="Background.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Resource Include="Toolkit.Content\ApplicationBar.Search.png" />
+    <Content Include="Toolkit.Content\ApplicationBar.Search.png" />
+    <Content Include="Toolkit.Content\ApplicationBar.SentText.png" />
     <Resource Include="Icon\star-icon.png" />
     <Resource Include="Icon\coffee-icon.png" />
     <Resource Include="Icon\coffee-icon.jpg" />
@@ -163,7 +162,9 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Converters\" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

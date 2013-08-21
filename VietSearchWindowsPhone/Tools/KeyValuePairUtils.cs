@@ -25,4 +25,5 @@ namespace VietSearchWindowsPhone.Tools
             throw new Exception("the value is not found in the dictionary");
         }
     }
+
 }

@@ -24,6 +24,8 @@ namespace VietSearchWebService.Models.ModelManager
             this.Property(t => t.accountName)
                 .HasColumnName("AccountName")
                 .HasMaxLength(200);
+            this.Property(t => t.accountPicture)
+               .HasColumnName("AccountPicture");
             
             this.Property(t => t.isLock)
                 .HasColumnName("IsLock");
