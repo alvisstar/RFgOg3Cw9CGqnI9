@@ -16,6 +16,8 @@ using System.IO;
 using Facebook.Client;
 using VietSearchWindowsPhone.FacebookUtility;
 using Telerik.Windows.Controls;
+using Microsoft.Phone.Controls.Maps;
+using System.Device.Location;
 namespace VietSearchWindowsPhone.View
 {
     public partial class PlaceDetailPage : PhoneApplicationPage
@@ -23,15 +25,15 @@ namespace VietSearchWindowsPhone.View
        
         PlaceViewModel placeViewModel;
         List<CommentViewModel> listComment = new List<CommentViewModel>();
+        private double ZOOM_LEVEL = 17;
         
         public PlaceDetailPage()
         {
             InitializeComponent();
             placeViewModel = new PlaceViewModel();
-            
-           
-           
-            
+            map.CredentialsProvider = new ApplicationIdCredentialsProvider { 
+                ApplicationId = "AguRAMwQEtd4D9lck2K2gyyqKfU_ZKFvInqzChc5nYJiA8-e-7JzgGKPuoqalqco"
+            };
         }
 
         public void InitInfo()
@@ -43,6 +45,12 @@ namespace VietSearchWindowsPhone.View
             txtStreetInfo.Text = placeViewModel.street.streetName;
             txtDistrictInfo.Text = placeViewModel.district.districtName;
             txtCityInfo.Text = placeViewModel.city.cityName;
+            Pushpin locationPushpin = new Pushpin();
+            locationPushpin.Content = placeViewModel.placeName;
+            GeoCoordinate location = new GeoCoordinate(placeViewModel.latitude, placeViewModel.longitude);
+            locationPushpin.Location = location;
+            map.Children.Add(locationPushpin);
+            map.SetView(location, ZOOM_LEVEL);
         }
 
         
