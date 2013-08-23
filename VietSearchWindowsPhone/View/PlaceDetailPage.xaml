@@ -223,7 +223,10 @@
             </controls:PivotItem>
             <controls:PivotItem Header="Bản Đồ">
                 <!--Double line list with text wrapping-->
-                <Grid x:Name="SearchLayout"><my:Map Name="map"/>
+                <Grid x:Name="SearchLayout">
+                    <my:Map Name="map"/>
+                    <Button Content="+" Height="72" HorizontalAlignment="Left" Margin="0,52,0,0" Name="buttonZoomIn" VerticalAlignment="Top" Width="72" Background="#00270D0D" FontWeight="Bold" BorderBrush="#FF3CAD0A" Foreground="#FFF62A15" FontSize="28" Click="buttonZoomIn_Click"/>
+                    <Button Content="-" Height="72" HorizontalAlignment="Left" Margin="0,132,0,0" Name="buttonZoomOut" VerticalAlignment="Top" Width="72" Background="#00270D0D" FontWeight="Normal" Foreground="#FFE61919" BorderBrush="#FF1FAA49" FontSize="28" Click="buttonZoomOut_Click"/>
                 </Grid>
             </controls:PivotItem>
             <!--Pivot item two-->
