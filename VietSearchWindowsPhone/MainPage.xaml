@@ -183,15 +183,15 @@
                             <TextBlock Text="{Binding placeName}" FontSize="16" FontWeight="Bold" Grid.Row="0" TextWrapping="Wrap" />                
                             <StackPanel Orientation="Horizontal" Grid.Row="1">
                                 <Image Width="24" Height="24" Source="Icon/star-icon.png" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                <TextBlock Text="{Binding rating}" FontSize="15" VerticalAlignment="Center" FontWeight="SemiBold"  Margin="8,0,8,0" Foreground="#0795B9"/>
+                                <TextBlock Text="{Binding rating}" FontSize="14" VerticalAlignment="Center" FontWeight="SemiBold"  Margin="8,0,8,0" Foreground="#0795B9"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Grid.Row="2">
-                                <TextBlock Text="Loại Dịch Vụ: " FontSize="17" FontWeight="Bold" Foreground="{StaticResource PhoneSubtleBrush}"/>
-                                <TextBlock Text="{Binding placeType.placeTypeName}" FontSize="17" FontWeight="SemiBold" Grid.Row="0" Foreground="{StaticResource PhoneSubtleBrush}" TextWrapping="Wrap"/>
+                                <TextBlock Text="Loại Dịch Vụ: " FontSize="16" FontWeight="Bold" Foreground="{StaticResource PhoneSubtleBrush}"/>
+                                <TextBlock Text="{Binding placeType.placeTypeName}" FontSize="16" FontWeight="SemiBold" Grid.Row="0" Foreground="{StaticResource PhoneSubtleBrush}" TextWrapping="Wrap"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Grid.Row="3">
-                                <TextBlock Text="Địa Chỉ: " FontSize="17" FontWeight="Bold" Foreground="{StaticResource PhoneSubtleBrush}"/>
-                                <TextBlock  Text="{Binding fullAddress}" FontSize="17" FontWeight="SemiBold"  Foreground="{StaticResource PhoneSubtleBrush}" TextWrapping="Wrap"/>
+                                <TextBlock Text="Địa Chỉ: " FontSize="16" FontWeight="Bold" Foreground="{StaticResource PhoneSubtleBrush}"/>
+                                <TextBlock  Text="{Binding fullAddress}" FontSize="16" FontWeight="SemiBold"  Foreground="{StaticResource PhoneSubtleBrush}" TextWrapping="Wrap"/>
                             </StackPanel>
                         </Grid>
                     </Grid>
@@ -205,13 +205,50 @@
             <controls:PivotItem Header="Tìm Kiếm">
                 <!--Double line list with text wrapping-->
                 <Grid x:Name="SearchLayout">
-                    <Border x:Name="borderNumResult"  Width="480" Height="50" BorderThickness="0,6,0,4" BorderBrush="#FF216DB4" HorizontalAlignment="Center" VerticalAlignment="Top" Background="#FF413F3C" Margin="0,112,0,0" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="84*"/>
+                        <RowDefinition Height="62*"/>
+                        <RowDefinition Height="470*"/>
+                    </Grid.RowDefinitions>
+                    <telerikInput:RadAutoCompleteBox Watermark="Nhập Từ Khóa Tìm Kiếm..." ActionButtonVisibility="Visible"  BorderBrush="#FF216DB4" AutoCompletePopupDisplayMode="BelowTextBox" FilterDelay="0:0:0.350" Height="84"  HorizontalAlignment="Left"  x:Name="txtSearch"  VerticalAlignment="Top" Width="457"  TextChanged="AutoComplete" Grid.Row="0" ActionButtonTap="Search" SelectionForeground="Blue" Background="Transparent"  GotFocus="txtSearch_GotFocus" SelectionBackground="White" Foreground="White"  CaretBrush="{StaticResource PhoneTextBoxBrush}" SuggestionSelected="txtSearch_SuggestionSelected">
+                        <telerikInput:RadAutoCompleteBox.SuggestionItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="-12,-3-0,-3" DoubleTap="Grid_DoubleTap">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition/>
+
+                                    </Grid.ColumnDefinitions>
+                                    <Image Grid.Column="0" Margin="0,0,0,0" Width="48" Height="48" Source="Icon/coffee-icon.png"/>
+                                    <Grid Grid.Column="1">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Text="{Binding}" VerticalAlignment="Center" telerikInput:RadAutoCompleteBox.IsElementHighlighted="True" FontSize="16">
+                                            <telerikInput:RadAutoCompleteBox.HighlightStyle>
+                                                <telerikInput:HighlightStyle Foreground="#FF216DB4"/>
+                                            </telerikInput:RadAutoCompleteBox.HighlightStyle>
+
+                                        </TextBlock>
+                                    </Grid>
+                                </Grid>
+                            </DataTemplate>
+                        </telerikInput:RadAutoCompleteBox.SuggestionItemTemplate>
+                        <telerikPrimitives:RadTextBox.ActionButtonStyle>
+                            <Style TargetType="telerikPrimitives:RadImageButton">
+                                <Setter Property="ButtonShape" Value="Image"/>
+                            </Style>
+                        </telerikPrimitives:RadTextBox.ActionButtonStyle>
+
+
+                    </telerikInput:RadAutoCompleteBox>
+                    <Border x:Name="borderNumResult" Grid.Row="1" Width="480" Height="50" BorderThickness="0,6,0,4" BorderBrush="#FF216DB4" HorizontalAlignment="Center" VerticalAlignment="Top" Background="#FF413F3C" Margin="12,12,12,0"  >
                         <TextBlock x:Name="tblNumResult" Text="" Foreground="White" HorizontalAlignment="Center" FontSize="22" VerticalAlignment="Center"/>
                     </Border>
                     
 
                     
-                    <telerikPrimitives:RadDataBoundListBox x:Name="listSearchResult" ItemsSource="{Binding listResultPlace}" ItemTemplate="{StaticResource ListBoxItemTemplate}" Margin="0,167,0,53" EmptyContent="">
+                    <telerikPrimitives:RadDataBoundListBox x:Name="listSearchResult" ItemsSource="{Binding listResultPlace}" ItemTemplate="{StaticResource ListBoxItemTemplate}" Margin="12" EmptyContent="" Grid.Row="2">
                        
                
                         <!--<telerikPrimitives:RadDataBoundListBox.ItemAddedAnimation>
@@ -224,41 +261,10 @@
                         </telerikPrimitives:RadDataBoundListBox.ItemAddedAnimation>-->
                         
                     </telerikPrimitives:RadDataBoundListBox>
-                    <telerikPrimitives:RadBusyIndicator VerticalAlignment="Bottom" Background="Transparent" x:Name="loadMoreBusyIndicator" AnimationStyle="AnimationStyle7">
+                    <telerikPrimitives:RadBusyIndicator VerticalAlignment="Bottom" Background="Transparent" x:Name="loadMoreBusyIndicator" AnimationStyle="AnimationStyle7" Grid.Row="2">
                     </telerikPrimitives:RadBusyIndicator>
-                    <telerikInput:RadAutoCompleteBox Watermark="Nhập Từ Khóa Tìm Kiếm..." ActionButtonVisibility="Visible"  BorderBrush="#FF216DB4" AutoCompletePopupDisplayMode="BelowTextBox" FilterDelay="0:0:0.350" Height="84"  HorizontalAlignment="Left"  x:Name="txtSearch"  VerticalAlignment="Top" Width="457"  TextChanged="AutoComplete" Margin="0,-22,0,0" ActionButtonTap="Search" SelectionForeground="Blue" Background="Transparent"  GotFocus="txtSearch_GotFocus" SelectionBackground="White" Foreground="White"  CaretBrush="{StaticResource PhoneTextBoxBrush}" SuggestionSelected="txtSearch_SuggestionSelected">
-                        <telerikInput:RadAutoCompleteBox.SuggestionItemTemplate>
-                            <DataTemplate>
-                                <Grid Margin="-12,-3-0,-3" DoubleTap="Grid_DoubleTap">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition/>
-                                        
-                                    </Grid.ColumnDefinitions>
-                                    <Image Grid.Column="0" Margin="0,0,0,0" Width="48" Height="48" Source="Icon/coffee-icon.png"/>
-                                    <Grid Grid.Column="1">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition/>
-                                        </Grid.RowDefinitions>
-                                        <TextBlock Text="{Binding}" VerticalAlignment="Center" telerikInput:RadAutoCompleteBox.IsElementHighlighted="True" FontSize="16">
-                                            <telerikInput:RadAutoCompleteBox.HighlightStyle>
-                                                <telerikInput:HighlightStyle Foreground="#FF216DB4"/>
-                                            </telerikInput:RadAutoCompleteBox.HighlightStyle>
-                                            
-                                        </TextBlock>
-                                    </Grid>
-                                </Grid>
-                            </DataTemplate>
-                        </telerikInput:RadAutoCompleteBox.SuggestionItemTemplate>
-                        <telerikPrimitives:RadTextBox.ActionButtonStyle>
-                            <Style TargetType="telerikPrimitives:RadImageButton">
-                                <Setter Property="ButtonShape" Value="Image"/>
-                            </Style>
-                        </telerikPrimitives:RadTextBox.ActionButtonStyle>
-                        
-                        
-                    </telerikInput:RadAutoCompleteBox>
-                    <telerikPrimitives:RadBusyIndicator Background="Transparent" x:Name="searchBusyIndicator" AnimationStyle="AnimationStyle9">
+                    
+                    <telerikPrimitives:RadBusyIndicator Background="Transparent" x:Name="searchBusyIndicator" AnimationStyle="AnimationStyle9" Grid.RowSpan="3">
                         
                     </telerikPrimitives:RadBusyIndicator>
                 </Grid>

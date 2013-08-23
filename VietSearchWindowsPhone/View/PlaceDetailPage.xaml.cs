@@ -18,20 +18,23 @@ using VietSearchWindowsPhone.FacebookUtility;
 using Telerik.Windows.Controls;
 using Microsoft.Phone.Controls.Maps;
 using System.Device.Location;
+using System.Text;
+using VietSearchWindowsPhone.Tools;
 namespace VietSearchWindowsPhone.View
 {
     public partial class PlaceDetailPage : PhoneApplicationPage
     {
-       
+        string statusFacebook = "";
         PlaceViewModel placeViewModel;
         List<CommentViewModel> listComment = new List<CommentViewModel>();
         private double ZOOM_LEVEL = 17;
-        
+
         public PlaceDetailPage()
         {
             InitializeComponent();
             placeViewModel = new PlaceViewModel();
-            map.CredentialsProvider = new ApplicationIdCredentialsProvider { 
+            map.CredentialsProvider = new ApplicationIdCredentialsProvider
+            {
                 ApplicationId = "AguRAMwQEtd4D9lck2K2gyyqKfU_ZKFvInqzChc5nYJiA8-e-7JzgGKPuoqalqco"
             };
         }
@@ -53,11 +56,11 @@ namespace VietSearchWindowsPhone.View
             map.SetView(location, ZOOM_LEVEL);
         }
 
-        
+
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
-            
+
             base.OnNavigatedTo(e);
             string placeId = "";
 
@@ -88,7 +91,7 @@ namespace VietSearchWindowsPhone.View
                     Stream stream = response.GetResponseStream();
 
                     DataContractJsonSerializer jsonSerializer = new DataContractJsonSerializer(typeof(PlaceViewModel));
-                    placeViewModel  = (PlaceViewModel)jsonSerializer.ReadObject(stream);
+                    placeViewModel = (PlaceViewModel)jsonSerializer.ReadObject(stream);
                     LoadListComment();
                     InitInfo();
 
@@ -123,9 +126,9 @@ namespace VietSearchWindowsPhone.View
             });
         }
 
-       
+
         private void CompleteComment(object sender, UploadStringCompletedEventArgs e)
-        {         
+        {
             txtComment.Text = "";
             LoadListComment();
             actionBusyIndicator.IsRunning = false;
@@ -152,28 +155,28 @@ namespace VietSearchWindowsPhone.View
             }
             else
             {
-                 MessageBoxResult result = MessageBox.Show("Xác nhận đánh giá địa điểm", "", MessageBoxButton.OKCancel);
+                MessageBoxResult result = MessageBox.Show("Xác nhận đánh giá địa điểm", "", MessageBoxButton.OKCancel);
 
-                 if (result == MessageBoxResult.OK)
-                 {
-                     actionBusyIndicator.IsRunning = true;
-                     RateViewModel rateViewModel = new RateViewModel();
-                     rateViewModel.placeId = placeViewModel.placeId;
-                     rateViewModel.accountId = FacebookClientHelper.Instance.userId;
-                     rateViewModel.mark = ratingPlace.Value;
-                     rateViewModel.isLock = false;
-                     MemoryStream memoryStream = new MemoryStream();
-                     DataContractJsonSerializer jsonSer =
-                     new DataContractJsonSerializer(typeof(RateViewModel));
-                     jsonSer.WriteObject(memoryStream, rateViewModel);
-                     memoryStream.Position = 0;
-                     StreamReader sr = new StreamReader(memoryStream);
-                     var json = sr.ReadToEnd();
-                     var webClient = new WebClient();
-                     webClient.Headers[HttpRequestHeader.ContentType] = "application/json";
-                     webClient.UploadStringCompleted += this.CompleteRating;
-                     webClient.UploadStringAsync(new Uri(App.RATING_URI), "POST", json);
-                 }
+                if (result == MessageBoxResult.OK)
+                {
+                    actionBusyIndicator.IsRunning = true;
+                    RateViewModel rateViewModel = new RateViewModel();
+                    rateViewModel.placeId = placeViewModel.placeId;
+                    rateViewModel.accountId = FacebookClientHelper.Instance.userId;
+                    rateViewModel.mark = ratingPlace.Value;
+                    rateViewModel.isLock = false;
+                    MemoryStream memoryStream = new MemoryStream();
+                    DataContractJsonSerializer jsonSer =
+                    new DataContractJsonSerializer(typeof(RateViewModel));
+                    jsonSer.WriteObject(memoryStream, rateViewModel);
+                    memoryStream.Position = 0;
+                    StreamReader sr = new StreamReader(memoryStream);
+                    var json = sr.ReadToEnd();
+                    var webClient = new WebClient();
+                    webClient.Headers[HttpRequestHeader.ContentType] = "application/json";
+                    webClient.UploadStringCompleted += this.CompleteRating;
+                    webClient.UploadStringAsync(new Uri(App.RATING_URI), "POST", json);
+                }
             }
 
         }
@@ -239,6 +242,102 @@ namespace VietSearchWindowsPhone.View
             }
         }
 
-       
+        private void checkin_Click(object sender, EventArgs e)
+        {
+            if ("".Equals(FacebookClientHelper.Instance.accessToken))
+            {
+                MessageBoxResult result = MessageBox.Show("Xác Nhận Đăng Nhập Facebook", "", MessageBoxButton.OKCancel);
+
+                if (result == MessageBoxResult.OK)
+                {
+                    NavigationService.Navigate(new Uri("/View/FacebookLoginPage.xaml", UriKind.Relative));
+                }
+            }
+            else
+            {
+                Style statusTextBoxStyle = new Style(typeof(RadTextBox));
+                //statusTextBoxStyle.Setters.Add(new Setter(RadTextBox.InputScopeProperty,""));
+                string statusTitle = "Nhập trạng thái";
+                string status = "Vui lòng nhập trạng thái";
+                RadInputPrompt.Show(statusTitle, MessageBoxButtons.OKCancel, status, InputMode.Text, statusTextBoxStyle, closedHandler: (closedArgs) =>
+                {
+                    if (closedArgs.Result == DialogResult.OK)
+                    {
+
+                       // FacebookClientHelper.Instance.getShop();
+                        statusFacebook = closedArgs.Text +"__ tại "+ placeViewModel.homeNumber + " " + placeViewModel.street.streetName + ", " + placeViewModel.district.districtName +", " + placeViewModel.city.cityName;
+                        FacebookClientHelper.Instance.PostMessageOnWall(statusFacebook, new UploadStringCompletedEventHandler(PostMessageOnWallCompleted));
+
+                    }
+                    else
+                    {
+
+                    }
+
+                });
+            }
+        }
+
+
+        void PostMessageOnWallCompleted(object sender, UploadStringCompletedEventArgs e)
+        {
+            if (e.Cancelled)
+                return;
+            if (e.Error != null)
+            {
+                MessageBox.Show("Error Occurred: " + e.Error.Message);
+                return;
+            }
+
+            System.Diagnostics.Debug.WriteLine(e.Result);
+
+            string result = e.Result;
+            byte[] data = Encoding.UTF8.GetBytes(result);
+            MemoryStream memStream = new MemoryStream(data);
+            DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(ResponseData));
+            ResponseData responseData = (ResponseData)serializer.ReadObject(memStream);
+
+            if (responseData.id != null && !responseData.id.Equals(""))
+            {
+                // Success
+                MessageBox.Show("Cập nhật trạng thái thành công!");
+            }
+            else if (responseData.error != null && responseData.error.code == 190)
+            {
+                if (responseData.error.error_subcode == 463)
+                {
+                    // Access Token Expired, need to get new token
+                    FacebookClientHelper.Instance.ExchangeAccessToken(new UploadStringCompletedEventHandler(ExchangeAccessTokenCompleted));
+                }
+                else
+                {
+                    // Another Error with Access Token, need to clear the Access Token
+                    FacebookClientHelper.Instance.accessToken = "";
+
+                }
+            }
+            else
+            {
+                // Error
+            }
+        }
+        void ExchangeAccessTokenCompleted(object sender, UploadStringCompletedEventArgs e)
+        {
+            // Acquire access_token and expires timestamp
+            IEnumerable<KeyValuePair<string, string>> pairs = UriToolKits.ParseQueryString(e.Result);
+            string accessToken = KeyValuePairUtils.GetValue(pairs, "access_token");
+
+            if (accessToken != null && !accessToken.Equals(""))
+            {
+                MessageBox.Show("Access Token Exchange Failed");
+                return;
+            }
+
+            // Save access_token
+            FacebookClientHelper.Instance.accessToken = accessToken;
+            FacebookClientHelper.Instance.PostMessageOnWall(statusFacebook, new UploadStringCompletedEventHandler(PostMessageOnWallCompleted));
+        }
+
+
     }
 }

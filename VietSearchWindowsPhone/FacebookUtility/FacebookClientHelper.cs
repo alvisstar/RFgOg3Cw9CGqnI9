@@ -24,8 +24,8 @@ namespace VietSearchWindowsPhone.FacebookUtility
 
         private String appId = "610255289024686";
         private String clientSecret = "35ad782b9afd911460f7178e490a4aff";
-        private String scope = "publish_stream";
-        private const string extendedPermissions = "user_about_me,read_stream,publish_stream";
+        private String scope = "user_about_me,read_stream,publish_stream";
+        private const string extendedPermissions = "user_about_me,read_stream,publish_stream,user_checkins";
         public FacebookClientHelper()
         {
             try
@@ -48,20 +48,38 @@ namespace VietSearchWindowsPhone.FacebookUtility
         }
         public Uri GetFacebookLoginUrl()
         {
-            var parameters = new Dictionary<string, object>();
-            parameters["client_id"] = appId;
-            parameters["redirect_uri"] = "https://www.facebook.com/connect/login_success.html";
-            parameters["response_type"] = "token";
-            parameters["display"] = "touch";
+            //var parameters = new Dictionary<string, object>();
+            //parameters["client_id"] = appId;
+            //parameters["redirect_uri"] = "https://www.facebook.com/connect/login_success.html";
+            //parameters["response_type"] = "token";
+            //parameters["display"] = "touch";
 
+            return new Uri("https://m.facebook.com/dialog/oauth?client_id=" + appId + "&redirect_uri=https://www.facebook.com/connect/login_success.html&scope=" + scope + "&display=touch&response_type=token");
             // add the 'scope' only if we have extendedPermissions.
-            if (!string.IsNullOrEmpty(extendedPermissions))
-            {
-                // A comma-delimited list of permissions
-                parameters["scope"] = extendedPermissions;
-            }
+            //if (!string.IsNullOrEmpty(extendedPermissions))
+            //{
+            //    // A comma-delimited list of permissions
+            //    parameters["scope"] = extendedPermissions;
+            //}
 
-            return client.GetLoginUrl(parameters);
+            //return client.GetLoginUrl(parameters);
+        }
+        private void PostToWall(string status)
+        {
+            //var parameters = new Dictionary<string, object>();
+            //parameters["message"] = status;
+            //parameters["place"] = "aaa";
+            //client.PostAsync("me/checkins", parameters);
+            //Dictionary<string, object> position = new System.Collections.Generic.Dictionary<string, object>();
+           // position.Add("latitude", 25.04098367f);
+           // position.Add("longitude", 121.54597771f);
+
+            Dictionary<string, object> parameters = new System.Collections.Generic.Dictionary<string, object>();
+           // parameters.Add("access_token", _accessToken);
+            parameters.Add("message", status);
+           // parameters.Add("place", "61025528902468");
+           // parameters.Add("coordinates", position);
+            client.PostAsync("me/news.reads", parameters);
         }
 
         public static FacebookClientHelper Instance
@@ -109,6 +127,50 @@ namespace VietSearchWindowsPhone.FacebookUtility
                     appSettings.Add("userId", _userId);
             }
         }
+
+
+        public void getShop()
+        {
+            
+            //return name
+            
+                //MessageBox.Show("you are login as");
+                var fbClient = new FacebookClient(_accessToken);
+
+                fbClient.GetCompleted += new EventHandler<FacebookApiEventArgs>(onGetShopCompleted);//another example
+
+                Dictionary<string, object> searchParams = new Dictionary<string, object>();
+                //searchParams.Add("q", "coffee");
+
+
+                searchParams.Add("center", "10.779377" + "," + "106.696545");
+                searchParams.Add("type", "place");
+                searchParams.Add("distance", "1000");
+
+                fbClient.GetAsync("/search", searchParams);
+            
+        }
+
+        private void onGetShopCompleted(object sender, FacebookApiEventArgs e)
+        {
+            var a = App.Current as App;
+            if (e.Error == null)
+            {
+                var result = (IDictionary<string, object>)e.GetResultData();
+ 
+                // JSON extraction here
+               
+ 
+                
+ 
+            }
+            else
+            {
+                //MessageBox.Show(e.Error.Message);
+            }
+        
+ 
+      }
 
         public virtual String GetLoginUrl()
         {

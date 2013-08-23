@@ -87,6 +87,8 @@ namespace VietSearchWindowsPhone.View
             fb.GetAsync("me");
         }
 
+
+
         private void GetAvatarCallBack(IAsyncResult asynchronousResult)
         {
             
