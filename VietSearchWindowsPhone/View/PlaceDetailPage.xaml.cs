@@ -21,6 +21,7 @@ using System.Device.Location;
 using System.Text;
 using VietSearchWindowsPhone.Tools;
 using Microsoft.Phone.Controls.Maps.Platform;
+
 namespace VietSearchWindowsPhone.View
 {
     public partial class PlaceDetailPage : PhoneApplicationPage
@@ -61,103 +62,132 @@ namespace VietSearchWindowsPhone.View
             map.Children.Add(serviceLocationPushpin);
             map.SetView(serviceLocation, ZOOM_LEVEL);
 
-            GeoCoordinateWatcher gpsWatcher = new GeoCoordinateWatcher();
+
+
+
+            IGeoPositionWatcher<GeoCoordinate> gpsWatcher = new System.Device.Location.GeoCoordinateWatcher();
+            gpsWatcher.PositionChanged += new EventHandler<GeoPositionChangedEventArgs<GeoCoordinate>>(gpsWatcher_PositionChanged);
+          //  gpsWatcher.StatusChanged += new EventHandler<GeoPositionStatusChangedEventArgs>(gpsWatcher_StatusChanged);
+gpsWatcher.Start();
             //Default place if cannot get from gps
-            double latitude = 10.8515;
-            double longitude = 106.7513;
-
-            var currentLocation = gpsWatcher.Position;
-            if (!currentLocation.Location.IsUnknown)
+            
+        }
+        void gpsWatcher_PositionChanged(object sender, GeoPositionChangedEventArgs<GeoCoordinate> e)
+        {
+            try
             {
-                latitude = currentLocation.Location.Latitude;
-                longitude = currentLocation.Location.Longitude;
+                double latitude = 10.766743;
+                double longitude = 106.681491;
+                if (e.Position.Location.IsUnknown)
+                {
+                    MessageBox.Show("Please wait while your prosition is determined....");
+                    return;
+                }
+
+                this.map.Center = new GeoCoordinate(e.Position.Location.Latitude, e.Position.Location.Longitude);
+
+                var currentLocation = e.Position;
+                if (!currentLocation.Location.IsUnknown)
+                {
+                    //latitude = currentLocation.Location.Latitude;
+                    //longitude = currentLocation.Location.Longitude;
+                }
+
+                //Add marker to your current gps position on the map
+                Pushpin currentPositionPushin = new Pushpin();
+                currentPositionPushin.Content = "Your Position";
+                GeoCoordinate currentPosition = new GeoCoordinate(latitude, longitude);
+                currentPositionPushin.Location = currentPosition;
+                map.Children.Add(currentPositionPushin);
+
+                //Calculate Route
+                routeservice.RouteServiceClient routeServiceClient = new routeservice.RouteServiceClient("BasicHttpBinding_IRouteService");
+                routeServiceClient.CalculateRouteCompleted += new EventHandler<routeservice.CalculateRouteCompletedEventArgs>(routeService_CalculateRouteCompledted);
+                routeservice.RouteRequest routeRequest = new routeservice.RouteRequest();
+                routeRequest.Credentials = new Credentials();
+                routeRequest.Credentials.ApplicationId = APP_ID;
+                routeRequest.Options = new routeservice.RouteOptions();
+                routeRequest.Options.RoutePathType = routeservice.RoutePathType.Points;
+                routeRequest.Waypoints = new System.Collections.ObjectModel.ObservableCollection<routeservice.Waypoint>();
+
+                routeservice.Waypoint currentWayPoint = new routeservice.Waypoint();
+                currentWayPoint.Description = "Your position";
+                currentWayPoint.Location = new Location();
+                currentWayPoint.Location.Latitude = latitude;
+                currentWayPoint.Location.Longitude = longitude;
+
+                routeservice.Waypoint destWayPoint = new routeservice.Waypoint();
+                destWayPoint.Description = placeViewModel.placeName;
+                destWayPoint.Location = new Location();
+                destWayPoint.Location.Latitude = placeViewModel.latitude;
+                destWayPoint.Location.Longitude = placeViewModel.longitude;
+
+                routeRequest.Waypoints.Add(currentWayPoint);
+                routeRequest.Waypoints.Add(destWayPoint);
+                routeServiceClient.CalculateRouteAsync(routeRequest);
             }
-
-            //Add marker to your current gps position on the map
-            Pushpin currentPositionPushin = new Pushpin();
-            currentPositionPushin.Content = "Your Position";
-            GeoCoordinate currentPosition = new GeoCoordinate(latitude, longitude);
-            currentPositionPushin.Location = currentPosition;
-            map.Children.Add(currentPositionPushin);
-
-            //Calculate Route
-            routeservice.RouteServiceClient routeServiceClient = new routeservice.RouteServiceClient("BasicHttpBinding_IRouteService");
-            routeServiceClient.CalculateRouteCompleted += new EventHandler<routeservice.CalculateRouteCompletedEventArgs>(routeService_CalculateRouteCompledted);
-            routeservice.RouteRequest routeRequest = new routeservice.RouteRequest();
-            routeRequest.Credentials = new Credentials();
-            routeRequest.Credentials.ApplicationId = APP_ID;
-            routeRequest.Options = new routeservice.RouteOptions();
-            routeRequest.Options.RoutePathType = routeservice.RoutePathType.Points;
-            routeRequest.Waypoints = new System.Collections.ObjectModel.ObservableCollection<routeservice.Waypoint>();
-
-            routeservice.Waypoint currentWayPoint = new routeservice.Waypoint();
-            currentWayPoint.Description = "Your position";
-            currentWayPoint.Location = new Location();
-            currentWayPoint.Location.Latitude = latitude;
-            currentWayPoint.Location.Longitude = longitude;
-
-            routeservice.Waypoint destWayPoint = new routeservice.Waypoint();
-            destWayPoint.Description = placeViewModel.placeName;
-            destWayPoint.Location = new Location();
-            destWayPoint.Location.Latitude = placeViewModel.latitude;
-            destWayPoint.Location.Longitude = placeViewModel.longitude;
-
-            routeRequest.Waypoints.Add(currentWayPoint);
-            routeRequest.Waypoints.Add(destWayPoint);
-            routeServiceClient.CalculateRouteAsync(routeRequest);
+            catch
+            {
+            }
         }
 
         void routeService_CalculateRouteCompledted(object sender, routeservice.CalculateRouteCompletedEventArgs e)
         {
             // If the route calculate was a success and contains a route, then draw the route on the map.
-            if ((e.Result.ResponseSummary.StatusCode == routeservice.ResponseStatusCode.Success) & (e.Result.Result.Legs.Count != 0))
+            try
             {
-                // Set properties of the route line you want to draw.
-                Color routeColor = Colors.Blue;
-                SolidColorBrush routeBrush = new SolidColorBrush(routeColor);
-                MapPolyline routeLine = new MapPolyline();
-                routeLine.Locations = new LocationCollection();
-                routeLine.Stroke = routeBrush;
-                routeLine.Opacity = 0.50;
-                routeLine.StrokeThickness = 5.0;
-                // Retrieve the route points that define the shape of the route.
-                foreach (Location p in e.Result.Result.RoutePath.Points)
+                if ((e.Result.ResponseSummary.StatusCode == routeservice.ResponseStatusCode.Success) & (e.Result.Result.Legs.Count != 0))
                 {
-                    routeLine.Locations.Add(new Location { Latitude = p.Latitude, Longitude = p.Longitude });
+                    // Set properties of the route line you want to draw.
+                    Color routeColor = Colors.Blue;
+                    SolidColorBrush routeBrush = new SolidColorBrush(routeColor);
+                    MapPolyline routeLine = new MapPolyline();
+                    routeLine.Locations = new LocationCollection();
+                    routeLine.Stroke = routeBrush;
+                    routeLine.Opacity = 0.50;
+                    routeLine.StrokeThickness = 5.0;
+                    // Retrieve the route points that define the shape of the route.
+                    foreach (Location p in e.Result.Result.RoutePath.Points)
+                    {
+                        routeLine.Locations.Add(new Location { Latitude = p.Latitude, Longitude = p.Longitude });
+                    }
+                    // Add a map layer in which to draw the route.
+                    MapLayer myRouteLayer = new MapLayer();
+                    map.Children.Add(myRouteLayer);
+                    // Add the route line to the new layer.
+                    myRouteLayer.Children.Add(routeLine);
+                    // Figure the rectangle which encompasses the route. This is used later to set the map view.
+                    /*double centerlatitude = (routeLine.Locations[0].Latitude + routeLine.Locations[routeLine.Locations.Count - 1].Latitude) / 2;
+                    double centerlongitude = (routeLine.Locations[0].Longitude + routeLine.Locations[routeLine.Locations.Count - 1].Longitude) / 2;
+                    Location centerloc = new Location();
+                    centerloc.Latitude = centerlatitude;
+                    centerloc.Longitude = centerlongitude;
+                    double north, south, east, west;
+                    if ((routeLine.Locations[0].Latitude > 0) && (routeLine.Locations[routeLine.Locations.Count - 1].Latitude > 0))
+                    {
+                        north = routeLine.Locations[0].Latitude > routeLine.Locations[routeLine.Locations.Count - 1].Latitude ? routeLine.Locations[0].Latitude : routeLine.Locations[routeLine.Locations.Count - 1].Latitude;
+                        south = routeLine.Locations[0].Latitude < routeLine.Locations[routeLine.Locations.Count - 1].Latitude ? routeLine.Locations[0].Latitude : routeLine.Locations[routeLine.Locations.Count - 1].Latitude;
+                    }
+                    else
+                    {
+                        north = routeLine.Locations[0].Latitude < routeLine.Locations[routeLine.Locations.Count - 1].Latitude ? routeLine.Locations[0].Latitude : routeLine.Locations[routeLine.Locations.Count - 1].Latitude;
+                        south = routeLine.Locations[0].Latitude > routeLine.Locations[routeLine.Locations.Count - 1].Latitude ? routeLine.Locations[0].Latitude : routeLine.Locations[routeLine.Locations.Count - 1].Latitude;
+                    }
+                    if ((routeLine.Locations[0].Longitude < 0) && (routeLine.Locations[routeLine.Locations.Count - 1].Longitude < 0))
+                    {
+                        west = routeLine.Locations[0].Longitude < routeLine.Locations[routeLine.Locations.Count - 1].Longitude ? routeLine.Locations[0].Longitude : routeLine.Locations[routeLine.Locations.Count - 1].Longitude;
+                        east = routeLine.Locations[0].Longitude > routeLine.Locations[routeLine.Locations.Count - 1].Longitude ? routeLine.Locations[0].Longitude : routeLine.Locations[routeLine.Locations.Count - 1].Longitude;
+                    }
+                    else
+                    {
+                        west = routeLine.Locations[0].Longitude > routeLine.Locations[routeLine.Locations.Count - 1].Longitude ? routeLine.Locations[0].Longitude : routeLine.Locations[routeLine.Locations.Count - 1].Longitude;
+                        east = routeLine.Locations[0].Longitude < routeLine.Locations[routeLine.Locations.Count - 1].Longitude ? routeLine.Locations[0].Longitude : routeLine.Locations[routeLine.Locations.Count - 1].Longitude;
+                    }
+                     * */
                 }
-                // Add a map layer in which to draw the route.
-                MapLayer myRouteLayer = new MapLayer();
-                map.Children.Add(myRouteLayer);
-                // Add the route line to the new layer.
-                myRouteLayer.Children.Add(routeLine);
-                // Figure the rectangle which encompasses the route. This is used later to set the map view.
-                /*double centerlatitude = (routeLine.Locations[0].Latitude + routeLine.Locations[routeLine.Locations.Count - 1].Latitude) / 2;
-                double centerlongitude = (routeLine.Locations[0].Longitude + routeLine.Locations[routeLine.Locations.Count - 1].Longitude) / 2;
-                Location centerloc = new Location();
-                centerloc.Latitude = centerlatitude;
-                centerloc.Longitude = centerlongitude;
-                double north, south, east, west;
-                if ((routeLine.Locations[0].Latitude > 0) && (routeLine.Locations[routeLine.Locations.Count - 1].Latitude > 0))
-                {
-                    north = routeLine.Locations[0].Latitude > routeLine.Locations[routeLine.Locations.Count - 1].Latitude ? routeLine.Locations[0].Latitude : routeLine.Locations[routeLine.Locations.Count - 1].Latitude;
-                    south = routeLine.Locations[0].Latitude < routeLine.Locations[routeLine.Locations.Count - 1].Latitude ? routeLine.Locations[0].Latitude : routeLine.Locations[routeLine.Locations.Count - 1].Latitude;
-                }
-                else
-                {
-                    north = routeLine.Locations[0].Latitude < routeLine.Locations[routeLine.Locations.Count - 1].Latitude ? routeLine.Locations[0].Latitude : routeLine.Locations[routeLine.Locations.Count - 1].Latitude;
-                    south = routeLine.Locations[0].Latitude > routeLine.Locations[routeLine.Locations.Count - 1].Latitude ? routeLine.Locations[0].Latitude : routeLine.Locations[routeLine.Locations.Count - 1].Latitude;
-                }
-                if ((routeLine.Locations[0].Longitude < 0) && (routeLine.Locations[routeLine.Locations.Count - 1].Longitude < 0))
-                {
-                    west = routeLine.Locations[0].Longitude < routeLine.Locations[routeLine.Locations.Count - 1].Longitude ? routeLine.Locations[0].Longitude : routeLine.Locations[routeLine.Locations.Count - 1].Longitude;
-                    east = routeLine.Locations[0].Longitude > routeLine.Locations[routeLine.Locations.Count - 1].Longitude ? routeLine.Locations[0].Longitude : routeLine.Locations[routeLine.Locations.Count - 1].Longitude;
-                }
-                else
-                {
-                    west = routeLine.Locations[0].Longitude > routeLine.Locations[routeLine.Locations.Count - 1].Longitude ? routeLine.Locations[0].Longitude : routeLine.Locations[routeLine.Locations.Count - 1].Longitude;
-                    east = routeLine.Locations[0].Longitude < routeLine.Locations[routeLine.Locations.Count - 1].Longitude ? routeLine.Locations[0].Longitude : routeLine.Locations[routeLine.Locations.Count - 1].Longitude;
-                }
-                 * */
+            }
+            catch
+            {
             }
         }
 

@@ -28,7 +28,7 @@ namespace VietSearchWindowsPhone
         /// <returns>The MainViewModel object.</returns>
         /// 
         //public const string strHost = "http://localhost:21222/api";
-        public const string strHost = "http://192.168.202.78:8081/api";
+        public const string strHost = "http://192.168.15.108:8081/api";
         public const string SERVICE_URI = strHost + "/Service";
         public const string HANDLEINPUT_URI = strHost +"/HandleInput";
         public const string PLACE_URI = strHost +"/Place";

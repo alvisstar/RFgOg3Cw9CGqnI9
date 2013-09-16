@@ -23,11 +23,8 @@ namespace VietSearchWebService.Controllers
        
         public ServiceController()
         {
-
             
-            searchProvider = new SearchProvider();
-            
-            
+            searchProvider = new SearchProvider();                 
         }
 
         public SearchResultObject Get(string keyword,string cityId,int index)
@@ -36,10 +33,6 @@ namespace VietSearchWebService.Controllers
             keyword = StringHelper.StandardizeString(keyword);
             searchResultObject = searchProvider.Search(keyword, cityId,index);           
             return searchResultObject;
-        }
-
-        
-        
-
+        }        
     }
 }
