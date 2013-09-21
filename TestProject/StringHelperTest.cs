@@ -1,6 +1,9 @@
 ﻿using VietSearch.Utility;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using VietSearchWebService.Models;
+using System.Collections.Generic;
+using VietSearchWebService.Models.AutoCompleteProvider;
 
 namespace TestProject
 {
@@ -70,6 +73,8 @@ namespace TestProject
         [TestMethod()]
         public void StandardizeStringTest()
         {
+            AutoCompleteProvider a = new AutoCompleteProvider();
+            List<string> strs = a.Suggest("cafe duong an duong vuong");
             string s = "Lý   Thường    Kiệt"; // TODO: Initialize to an appropriate value
             string expected = "lythuongkiet"; // TODO: Initialize to an appropriate value
             string actual;

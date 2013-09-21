@@ -17,10 +17,12 @@ namespace VietSearchWebService.Models.AutoCompleteProvider
         SortedList<string, string> sListPlaceType = null;
         SortedList<string, string> sListStreet = null;
         SortedList<string, string> sListDistrict = null;
+        SortedList<string, string> sListPlace = null;
         
         List<Street> listStreet = new List<Street>();
         List<District> listDistrict = new List<District>();
         List<PlaceType> listPlaceType = new List<PlaceType>();
+        List<Place> listPlace = new List<Place>();
 
         VietSearchContext vietSearchContext;
 
@@ -33,7 +35,7 @@ namespace VietSearchWebService.Models.AutoCompleteProvider
             return autoCompleteProvider;
         }
 
-        private AutoCompleteProvider()
+        public AutoCompleteProvider()
         {
             vietSearchContext = new VietSearchContext();
             listSuggest = new List<string>();
@@ -44,10 +46,12 @@ namespace VietSearchWebService.Models.AutoCompleteProvider
            
             listDistrict = (from district in vietSearchContext.districts where district.isLock == false select district).ToList();
             listPlaceType = (from placeType in vietSearchContext.placeTypes where placeType.isLock == false select placeType).ToList();
+            listPlace = (from place in vietSearchContext.places where place.isLock == false select place).ToList();
 
             sListStreet = new SortedList<string, string>();
             sListDistrict = new SortedList<string, string>();
             sListPlaceType = new SortedList<string, string>();
+            sListPlace = new SortedList<string, string>();
 
             foreach (Street street in listStreet)
             {
@@ -75,6 +79,16 @@ namespace VietSearchWebService.Models.AutoCompleteProvider
                 try
                 {
                     sListPlaceType.Add(StringHelper.StandardizeString(placeType.placeTypeName), placeType.placeTypeName);
+                }
+                catch
+                {
+                }
+            }
+            foreach (Place place in listPlace)
+            {
+                try
+                {
+                    sListPlace.Add(StringHelper.StandardizeString(place.placeName), place.placeName);
                 }
                 catch
                 {
@@ -181,6 +195,27 @@ namespace VietSearchWebService.Models.AutoCompleteProvider
                 }
 
                 AnalysisKeyword(strTemp, listPlaceType[i], streetName, districtName);
+                //if (listPlaceType[i].ToLower() != StringHelper.StandardizeString(listPlaceType[i]))
+                //{
+                //    AnalysisKeyword(strTemp, StringHelper.StandardizeString(listPlaceType[i]), streetName,districtName);
+                //}
+            }
+
+            List<string> listPlaceName = this.sListPlace.Where(x => x.Key.StartsWith(keyword) | keyword.StartsWith(x.Key)).Select(x => x.Value).ToList<string>();
+            strTemp = String.Empty;
+            for (int i = 0; i < listPlaceName.Count; i++)
+            {
+                string strPlaceName = StringHelper.StandardizeString(listPlaceName[i]);
+                if (strPlaceName.StartsWith(keyword))
+                {
+                    strTemp = String.Empty;
+                }
+                else
+                {
+                    strTemp = keyword.Replace(strPlaceName, String.Empty).Trim();
+                }
+
+                AnalysisKeyword(strTemp, listPlaceName[i], streetName, districtName);
                 //if (listPlaceType[i].ToLower() != StringHelper.StandardizeString(listPlaceType[i]))
                 //{
                 //    AnalysisKeyword(strTemp, StringHelper.StandardizeString(listPlaceType[i]), streetName,districtName);

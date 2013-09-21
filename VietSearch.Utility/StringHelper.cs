@@ -11,15 +11,17 @@ namespace VietSearch.Utility
         public static string StandardizeString(String s)
         {
             string result = ConvertToASCII(s);
-            return result.Replace(" ", "").ToLower();
+            result = result.Replace(" ", "").ToLower();
+            return result;
         }
 
         public static string ConvertToASCII(string text)
         {
             string s = text;
+            string space = new string((char)160, 1);
             string[] VietnameseSigns = new string[]
             {
-                "aAeEoOuUiIdDyY",
+                "aAeEoOuUiIdDyY ",
                 "áàạảãâấầậẩẫăắằặẳẵ",
                 "ÁÀẠẢÃÂẤẦẬẨẪĂẮẰẶẲẴ",
                 "éèẹẻẽêếềệểễ",
@@ -33,12 +35,18 @@ namespace VietSearch.Utility
                 "đ",
                 "ĐÐ",
                 "ýỳỵỷỹ",
-                "ÝỲỴỶỸ" };
-
+                "ÝỲỴỶỸ",
+                space};
+            
 
             for (int i = 1; i < VietnameseSigns.Length; i++)
+            {
                 for (int j = 0; j < VietnameseSigns[i].Length; j++)
+                {
                     s = s.Replace(VietnameseSigns[i][j], VietnameseSigns[0][i - 1]);
+                }
+
+            }
             return s.ToUpper();
         }
 

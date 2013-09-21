@@ -58,6 +58,10 @@
       <Project>{19B3CCF8-43D2-441A-9A32-048B7429F9CC}</Project>
       <Name>VietSearch.Utility</Name>
     </ProjectReference>
+    <ProjectReference Include="..\VietSearchWebService\VietSearchWebService.csproj">
+      <Project>{F7CD4092-7B13-4B20-90C9-F0B34D6EAB06}</Project>
+      <Name>VietSearchWebService</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
